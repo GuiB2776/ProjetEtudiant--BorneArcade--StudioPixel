@@ -1,0 +1,262 @@
+
+const largeurLaby=32;
+const hauteurLaby=16;
+const tailleCellule=50;
+
+var level1=[ [ 9, 5, 5,....],
+			 [ 10, 13, 5, 5, 7,... ]
+			];
+
+var mur;
+function start() 
+{
+	mur=loadImage(["mur0.png","mur1.png",..."mur15.png"],endloadMur);
+}
+var pacman;
+function endloadMur() 
+{
+	pacman=loadImage(["pacman.png"],endloadPacman);
+}
+
+function endloadPacman() 
+{
+	ctx=
+	loop();
+}
+
+			
+var xPacman=yPacman=0;
+
+function loop
+
+effaceCanvas => fillrect(...)
+for(var ligne=0;ligne<hauteurLaby;ligne++) 
+{
+	for(var colonne=0;colonne<largeurLaby;colonne++) 
+    {
+		var x=colonne*tailleCellule;
+		var y=ligne*tailleCellule;
+		ctx.drawImage(mur[level1[ligne][colonne]],
+		0,0,tailleCellule,tailleCellule,
+		x,y,tailleCellule,tailleCellule);
+	}
+}
+
+ctx.drawImage(pacman[0],
+0,0,tailleCellule,tailleCellule,
+xPacman,yPacman,tailleCellule,tailleCellule);
+
+
+setTimeout(loop,1000/60);
+
+
+
+
+
+
+
+
+
+
+___
+
+function loadWalls()                                        // fonction de dessin de la map avec les murs */
+            {
+                wall = loadImage(                                       // chargement des images des murs
+                [ 
+                    "assets/img/mur0.png" , "assets/img/mur1.png" , "assets/img/mur2.png" , "assets/img/mur3.png" , 
+                    "assets/img/mur4.png" , "assets/img/mur5.png" , "assets/img/mur6.png" , "assets/img/mur7.png" , 
+                    "assets/img/mur8.png" , "assets/img/mur9.png" , "assets/img/mur10.png" , "assets/img/mur11.png" ,
+                    "assets/img/mur12.png" , "assets/img/mur13.png" , "assets/img/mur14.png" , "assets/img/mur15.png"
+                ],   
+                    loadPacMan ) ;                                      // appel de la fonction de dessin de PacMan
+            }
+
+
+/* PacMan */
+var pacman ;                                                // définition de pacman 
+function loadPacMan()                                       // fonction de dessin de PacMan 
+{                                                           
+    pacman = loadImage( [ "assets/img/pacman.png" ] ,       // chargement de l'image "pacman.png"
+                            endDrawing
+                        )                                     // appel de la fonction de fin de chargement
+}
+
+
+function endDrawing()
+{
+    ctx = 
+
+    drawMap();
+}
+
+
+var xPacman = yPacman = 0;
+
+/* définition des axes par rapport aux lignes&colonnes et à la taille des cellules */
+                        var y = raw * cellSIZE;
+                        var x = column * cellSIZE;
+                        /* dessin de la map */
+                        ctx.drawImage(wall[map[raw][column]], 
+                        0, 0, cellSIZE, cellSIZE,
+                        x, y, cellSIZE, cellSIZE) ;
+
+
+
+/* dessin de PacMan */
+                ctx.drawImage(pacman[0], 
+                0,0,cellSIZE,cellSIZE,
+                x,y,cellSIZE,cellSIZE);
+
+
+___
+
+
+
+
+function lab() {
+    var Maze = document.getElementById("canvas");
+    var mazeX = Maze.getContext('2d')
+
+
+        // mazeX.drawImage(scoreasset,960,0,150,70)
+        // mazeX.drawImage(powerasset,120,15,150,40)
+        // mazeX.drawImage(playerasset,145,860,cel,cel)
+        // mazeX.drawImage(playerasset,200,860,cel,cel)
+        // mazeX.drawImage(playerasset,255,860,cel,cel)
+        for (let i = 0; i < level.length; i++) {
+            Dx = 0;
+            Dy = i * cel;
+            for (var j in level[i]) {
+
+                if (level[i][j] == 0) {
+                    mazeX.drawImage(asset0, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+
+                }
+                if (level[i][j] == 1) {
+                    mazeX.drawImage(asset1, Dx, Dy,cel,2);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 2) {
+                    mazeX.drawImage(asset2, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 3) {
+                    mazeX.drawImage(asset3, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 4) {
+                    mazeX.drawImage(asset4, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 5) {
+                    mazeX.drawImage(asset5, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 6) {
+                    mazeX.drawImage(asset6, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 7) {
+                    mazeX.drawImage(asset7, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 8) {
+                    mazeX.drawImage(asset8, Dx, Dy, 2,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 9) {
+                    mazeX.drawImage(asset9, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 10) {
+                    mazeX.drawImage(asset10, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 11) {
+                    mazeX.drawImage(asset11, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 12) {
+                    mazeX.drawImage(asset12, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 13) {
+                    mazeX.drawImage(asset13, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 14) {
+                    mazeX.drawImage(asset14, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+                if (level[i][j] == 15) {
+                    mazeX.drawImage(asset15, Dx, Dy,cel,cel);
+                    Dx = Dx + 50;
+                }
+            }
+        }
+}
+
+
+______________
+______________
+
+ <main>
+
+            <!-- images en HTML 
+
+            <div id="TilesMurs">
+                <div>
+                    <img class="Tiles" id="mur0" title="tile 0 mur" alt="tile 0 mur" src="assets/img/mur0.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur1" title="tile 1 mur" alt="tile 1 mur" src="assets/img/mur1.png"> 
+                </div>
+                <div>
+                    <img class="Tiles" id="mur2" title="tile 2 mur" alt="tile 2 mur" src="assets/img/mur2.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur3" title="tile 3 mur" alt="tile 3 mur" src="assets/img/mur3.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur4" title="tile 4 mur" alt="tile 4 mur" src="assets/img/mur4.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur5" title="tile 5 mur" alt="tile 5 mur" src="assets/img/mur5.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur6" title="tile 6 mur" alt="tile 6 mur" src="assets/img/mur6.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur7" title="tile 7 mur" alt="tile 7 mur" src="assets/img/mur7.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur8" title="tile 8 mur" alt="tile 8 mur" src="assets/img/mur8.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur9" title="tile 9 mur" alt="tile 9 mur" src="assets/img/mur9.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur10" title="tile 10 mur" alt="tile 10 mur" src="assets/img/mur10.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur11" title="tile 11 mur" alt="tile 11 mur" src="assets/img/mur11.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur12" title="tile 12 mur" alt="tile 12 mur" src="assets/img/mur12.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur13" title="tile 13 mur" alt="tile 13 mur" src="assets/img/mur13.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur14" title="tile 14 mur" alt="tile 14 mur" src="assets/img/mur14.png">
+                </div>
+                <div>
+                    <img class="Tiles" id="mur15" title="tile 15 mur" alt="tile 15 mur" src="assets/img/mur15.png">
+                </div>
+            </div>
+
+        FIN images en HTML -->
+
+        <div id='labyrinth'>  </div>

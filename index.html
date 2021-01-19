@@ -41,218 +41,139 @@
                 <p> Higher Score : </p>
                 <p id="HigherScorepoints"> xXXXx</p>
             </div>
-            <!-- Bouton menu principal -->
-            <div class="HUDelements" id="HomeButton">
-                <button id="HomeNav"> ► </button>
-                <!-- <img id="HomeNav" src=""> -->
+            <!-- Bouton de démarage du jeu -->
+            <div class="HUDelements" id="StartButtonHUD">
+                <button id="StartButton"> ► </button>
+                <!-- <img id="StartButton" src=""> -->
             </div>
         </header>
 
 
-        <main>
-
-            <!-- images en HTML 
-
-            <div id="TilesMurs">
-                <div>
-                    <img class="Tiles" id="mur0" title="tile 0 mur" alt="tile 0 mur" src="assets/img/mur0.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur1" title="tile 1 mur" alt="tile 1 mur" src="assets/img/mur1.png"> 
-                </div>
-                <div>
-                    <img class="Tiles" id="mur2" title="tile 2 mur" alt="tile 2 mur" src="assets/img/mur2.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur3" title="tile 3 mur" alt="tile 3 mur" src="assets/img/mur3.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur4" title="tile 4 mur" alt="tile 4 mur" src="assets/img/mur4.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur5" title="tile 5 mur" alt="tile 5 mur" src="assets/img/mur5.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur6" title="tile 6 mur" alt="tile 6 mur" src="assets/img/mur6.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur7" title="tile 7 mur" alt="tile 7 mur" src="assets/img/mur7.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur8" title="tile 8 mur" alt="tile 8 mur" src="assets/img/mur8.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur9" title="tile 9 mur" alt="tile 9 mur" src="assets/img/mur9.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur10" title="tile 10 mur" alt="tile 10 mur" src="assets/img/mur10.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur11" title="tile 11 mur" alt="tile 11 mur" src="assets/img/mur11.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur12" title="tile 12 mur" alt="tile 12 mur" src="assets/img/mur12.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur13" title="tile 13 mur" alt="tile 13 mur" src="assets/img/mur13.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur14" title="tile 14 mur" alt="tile 14 mur" src="assets/img/mur14.png">
-                </div>
-                <div>
-                    <img class="Tiles" id="mur15" title="tile 15 mur" alt="tile 15 mur" src="assets/img/mur15.png">
-                </div>
-            </div>
-
-        FIN images en HTML -->
-
-        <div id='labyrinth'>  </div>
-
-        </main>
-
         <!-- Canvas du jeu -->
-        <div id="CanvasBlock"> 
+        <div id="canvasBlock"> 
             <canvas id="myCanvas" width="1600px" height="800px"> </canvas> 
-        </div>
-
-            <!---------------->
-            <!-- JavaScript -->
-            <!---------------->
+        </div> 
 
 
-        <script>
+        <!---------------->
+        <!-- JavaScript -->
+        <!---------------->
 
-            var myCanvas = document.getElementById("myCanvas");
-            var ctx = myCanvas.getContext("2d");
+        <script type="text/javascript">
 
-            map = 
+            const labyrinthWIDTH   = 32 ;
+            const labyrinthHEIGHT  = 16 ;
+            const cellSIZE         = 50 ;
+
+            // var myCanvasContext,canvasWidth=1600,canvasHeight=800;
+            // var pacman, ghost1, ghost2, ghost3, ghost4;
+            // var coin, boost;
+
+            level = 
             [ 
                 [ 9, 5, 5, 1, 5, 5, 3, 9, 1, 1, 1, 1, 3, 9, 5, 5, 5, 5, 3, 9, 1, 1, 1, 1, 3, 9, 5, 5, 1, 5, 5, 3 ],
                 [ 10, 9, 7, 10, 13, 3, 10, 8, 0, 0, 4, 4, 6, 10, 9, 1, 1, 3, 10, 12, 4, 4, 0, 0, 2, 10, 9, 7, 8, 13, 3, 10],
                 [ 10, 14, 9, 0, 3, 14, 10, 12, 4, 6, 9, 5, 1, 2, 12, 4, 0, 2, 8, 5, 5, 3, 12, 4, 6, 10, 14, 9, 0, 3, 14, 10], 
-                [1,2,1,1,1,2,1,2,1,1,1,2,1], 
-                [1,2,1,2,2,2,2,2,2,2,1,2,1], 
-                [1,2,2,2,1,1,5,1,1,2,2,2,1], 
-                [1,2,1,2,2,2,2,2,2,2,1,2,1], 
-                [1,2,1,1,2,2,1,2,2,1,1,2,1], 
-                [1,2,2,2,2,2,1,2,2,2,2,2,1], 
-                [1,1,1,1,1,1,1,1,1,1,1,1,1]
-            ]
+                [ 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1 ],  
+                [ 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1 ], 
+                [ 1, 2, 2, 2, 1, 1, 5, 1, 1, 2, 2, 2, 1 ], 
+                [ 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1 ], 
+                [ 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1 ] 
+            ];
 
-            var mur1 = new Image();
-            mur1.onload = function() 
+            function loadImage(list, endLoad) 
             {
-                ctx.drawImage(mur1, 0, 0, 50, 50);
-            };
-            mur1.src = "assets/img/mur1.png";
 
-            var labyrinth = document.getElementById('labyrinth');
-	
-            function drawWorld()
-            {
-                labyrinth.innerHTML = '';
-                for(var raw = 0; raw < map.length ; raw++) 
-                {
-                    for(var column = 0; column < map[raw].length ; column++) 
-                    {		
-                        if (map[raw][column] === 0) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur0'></div>";
-                        }
-                        else if (map[raw][column] === 1) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur1'></div>";
-                        }
-                        else if (map[raw][column] === 2) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur2'></div>";
-                        }
-                        else if (map[raw][column] === 3) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur3'></div>";
-                        }
-                        else if (map[raw][column] === 4) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur4'></div>";
-                        }
-                        else if (map[raw][column] === 5) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur5'></div>";
-                        }
-                        else if (map[raw][column] === 6) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur6'></div>";
-                        }
-                        else if (map[raw][column] === 7) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur7'></div>";
-                        }
-                        else if (map[raw][column] === 8) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur8'></div>";
-                        }
-                        else if (map[raw][column] === 9) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur9'></div>";
-                        }
-                        else if (map[raw][column] === 10) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur10'></div>";
-                        }
-                        else if (map[raw][column] === 11) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur11'></div>";
-                        }
-                        else if (map[raw][column] === 12) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur12'></div>";
-                        }
-                        else if (map[raw][column] === 13) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur13'></div>";
-                        }
-                        else if (map[raw][column] === 14) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur14'></div>";
-                        }
-                        else if (map[raw][column] === 15) 
-                        {
-                            labyrinth.innerHTML += "<div class='mur15'></div>";
-                        }
+                var imgLoad = new Array();
+                imgLoad.isReady = false;
+                imgLoad.remainsToLoad = list.length;
+                    for (var i = 0; i < list.length; i++) 
+                    {
+                        imgLoad[i] = new Image();
+                        imgLoad[i].isReady = false;
+                        imgLoad[i].parent = imgLoad;
+                        //imgLoad[i].crossOrigin = 'file://';
+                        imgLoad[i].onload = function () 
+                                                        {
+                                                            this.onload = null;
+                                                            this.isReady = true;
+                                                            this.parent.remainsToLoad--;
+                                                            if (this.parent.remainsToLoad == 0) 
+                                                            {
+                                                                this.parent.isReady = true;
+                                                                if(typeof endLoad !== 'undefined') endLoad();
+                                                            }
+                                                        };
+                        imgLoad[i].src = list[i];
                     }
+                return imgLoad;
+            }
 
-                    labyrinth.innerHTML += "<br>";
+            var mur;
+            
+            function startLoading() 
+            {
+                mur=loadImage([ 
+                                "assets/img/mur0.png", "assets/img/mur1.png", "assets/img/mur2.png", "assets/img/mur3.png", 
+                                "assets/img/mur4.png", "assets/img/mur5.png", "assets/img/mur6.png", "assets/img/mur7.png", 
+                                "assets/img/mur8.png", "assets/img/mur9.png", "assets/img/mur10.png", "assets/img/mur11.png", 
+                                "assets/img/mur12.png", "assets/img/mur13.png", "assets/img/mur14.png", "assets/img/mur15.png"
+                              ], LoadPacman);
+            }
+
+            var pacman;
+
+            function LoadPacman() 
+            {
+                pacman = loadImage(["assets/img/pacman.png"], endLoadPacman);
+            }
+
+            function endLoadPacman() 
+            {   
+                drawLevel();
+            }
+
+            var xPacman=yPacman=0;
+
+            function drawLevel()
+            {
+
+                var canvas = document.getElementById('myCanvas');
+                var ctx = canvas.getContext('2d');
+
+                ctx.fillStyle = "lightgrey"; 
+                ctx.fillRect(0, 0, 1600, 800);
+
+                for(let row=0 ; row<level.length ; row++) 
+                {
+                    for(let column=0 ; column<level[row].length ; column++) 
+                    {
+                        var y = row * cellSIZE;
+                        var x = column * cellSIZE;
+
+                        ctx.drawImage(mur[level[row][column]],
+                        0,0,cellSIZE,cellSIZE,
+                        x,y,cellSIZE,cellSIZE);
+                    }
                 }
             }
 
-	        drawWorld();
-        
-            // si l'index du tableau contient le chiffre || nombre X 
-            // alors murX apparait
+            startLoading();
+
+            setTimeout(drawLevel,1000/60);
+            
 
         </script>
 
         <script>
 
-
+            
 
         </script>
 
-        <!-- <script>    
-
-            //déclaration du canvas
-            var myCanvas = document.getElementById("myCanvas"); // récupération du canvas
-            var ctx = myCanvas.getContext("2D"); // création d'un contexte 2D pour modifier le canvas
-
-            var mur1 = new Image() // création de l'objet mur1
-            mur1.src = "assets/img/mur1.png"; // chemin d'accès à la source
-            
-            myCanvas.drawImage(ctx, 0, 0) // affichage de l'image
-
-        </script> -->
 
         <footer>
-            <p> Projet Étudiant | © 2021 - Studio Pixel | Normandie Web Shcool </p>
+            <p> Projet Étudiant | © 2021 - Studio Pixel | Normandie Web School </p>
         </footer>
 
     </body>

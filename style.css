@@ -2,14 +2,14 @@
                     /*  INDEX  *\
                     /*---------*\
 /* 
-                1. GENERAL = l. xxx
-                2. HUD = l. xxx
-                3. Tiles & Sprites = l. xxx
-                4. Canvas = l. xxx
+                1. GENERAL = l.15
+                2. HUD = l.44
+                3. Tiles & Sprites = l.94
+                4. Canvas = l.281
  */
 
-/* ---------------------*//* ---------------------*/
-/* ---------------------*//* ---------------------*/
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
 
     /****************/
     /** 1. GENERAL **/
@@ -26,39 +26,19 @@ html, body
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
 }
-img
-{
-  
-}
-#TilesMurs
-{
-    text-align: center;
-}
-img.Tiles
-{
-}
 header
 {
     height: 200px;
-    width: 1920px;
+    width: 100%;
 }
 footer
 {
     text-align: center;
     font-size: 20px;
 }
-div>.mur0, div>.mur1, div>.mur2, div>.mur3, div>.mur4, div>.mur5, div>.mur6, div>.mur7,
-div>.mur8, div>.mur9, div>.mur10, div>.mur11, div>.mur12, div>.mur13, div>.mur14, div>.mur15
-{
-    height: 50px;
-}
-header>div
-{
-    height: none;
-}
 
-/* ---------------------*/
-/* ---------------------*/
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
 
 /**************/ 
 /*** 2. HUD ***/
@@ -77,7 +57,7 @@ header>div
     display: inline-block;
     border-style: dotted;
 }
-.HUDelements#HomeButton
+.HUDelements#StartButtonHUD
 {
     border-style: none;
     font-size: 100px;
@@ -101,14 +81,14 @@ header>div
 }
 
 /* Bouton du Menu Principal */
-#HomeNav
+#StartButton
 {
     font-size: 100%;
     border: none;
 }
 
-/* ---------------------*/
-/* ---------------------*/
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
 
 /************************/ 
 /** 3. Tiles & Sprites **/
@@ -231,11 +211,12 @@ header>div
 
 
 /* --  PACMAN -- */
-.pacman
+.pacman 
 {
+    background-size: cover;
     width: 50px;
     height: 50px;
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Pacman.svg/220px-Pacman.svg.png');
+    background-image: url("assets/img/pacman.png");
     display: inline-block;
 }
 
@@ -243,9 +224,37 @@ header>div
 
 
 /* --  BONUS -- */
+.pacgum
+{   
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url('assets/img/pacgum.png');
+    display: inline-block;
+}
 
-/* ---------------------*/
-/* ---------------------*/
+/* --------------- *//* --------------- */
+/* tiles & sprites pacmanPrototype.html */
+/* --------------- *//* --------------- */
+.mur 
+{   /* tile des murs */
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url('assets/img/mur15.png');
+    display: inline-block;
+}
+.caseVide 
+{   /* tile des cases vides */
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url('assets/img/mur0.png');
+    display: inline-block;
+}
+
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
 
 /****************/ 
 /** 4. Canvas **/
