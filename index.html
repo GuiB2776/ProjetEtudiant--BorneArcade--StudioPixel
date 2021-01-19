@@ -1,14 +1,43 @@
 <!DOCTYPE html>
-<html lang=en>
+
+<html lang="fr">
+
 
     <head>
-        <title> Pacman : Studio Pixel </title>
+
+        <title> PacMan - Projet Étudiant - Studio Pixel</title>	
+
         <meta charset="utf-8"/>
         <!-- liens -->
         <link type="text/css" href="style.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet"> 
+
+        <style>
+
+            *  /* afficher la division des cases */
+            { 
+                /* outline: 1px dotted purple; */
+            }
+
+            /* --------------- */
+            /*     GENERAL     */
+            /* --------------- */
+            body
+            {
+                text-align: center;
+            }
+            body>div, div.caseVide, div.pacman, div.mur  /* espacement entre les cases >>> div */
+            {
+                line-height: 0px;
+            }
+
+        </style>
+        
     </head>
+
+    <!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+    <!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
 
     <body>
 
@@ -26,6 +55,7 @@
                     <p class="BoostPoints" id="Boost1"> ◘ </p> 
                     <p class="BoostPoints" id="Boost2"> ◘ </p> 
                     <p class="BoostPoints" id="Boost3"> ◘ </p>
+                    <p class="BoostPoints" id="Boost4"> ◘ </p>
                     <!-- <img class="BoostPoint" src=""> -->
                 </div>
             </div>
@@ -41,141 +71,135 @@
                 <p> Higher Score : </p>
                 <p id="HigherScorepoints"> xXXXx</p>
             </div>
-            <!-- Bouton de démarage du jeu -->
+            <!-- Bouton de démarrage du jeu -->
             <div class="HUDelements" id="StartButtonHUD">
                 <button id="StartButton"> ► </button>
                 <!-- <img id="StartButton" src=""> -->
             </div>
         </header>
-
-
-        <!-- Canvas du jeu -->
-        <div id="canvasBlock"> 
-            <canvas id="myCanvas" width="1600px" height="800px"> </canvas> 
-        </div> 
-
-
-        <!---------------->
-        <!-- JavaScript -->
-        <!---------------->
-
-        <script type="text/javascript">
-
-            const labyrinthWIDTH   = 32 ;
-            const labyrinthHEIGHT  = 16 ;
-            const cellSIZE         = 50 ;
-
-            // var myCanvasContext,canvasWidth=1600,canvasHeight=800;
-            // var pacman, ghost1, ghost2, ghost3, ghost4;
-            // var coin, boost;
-
-            level = 
-            [ 
-                [ 9, 5, 5, 1, 5, 5, 3, 9, 1, 1, 1, 1, 3, 9, 5, 5, 5, 5, 3, 9, 1, 1, 1, 1, 3, 9, 5, 5, 1, 5, 5, 3 ],
-                [ 10, 9, 7, 10, 13, 3, 10, 8, 0, 0, 4, 4, 6, 10, 9, 1, 1, 3, 10, 12, 4, 4, 0, 0, 2, 10, 9, 7, 8, 13, 3, 10],
-                [ 10, 14, 9, 0, 3, 14, 10, 12, 4, 6, 9, 5, 1, 2, 12, 4, 0, 2, 8, 5, 5, 3, 12, 4, 6, 10, 14, 9, 0, 3, 14, 10], 
-                [ 1, 2, 1, 1, 1, 2, 1, 2, 1, 1, 1, 2, 1 ],  
-                [ 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1 ], 
-                [ 1, 2, 2, 2, 1, 1, 5, 1, 1, 2, 2, 2, 1 ], 
-                [ 1, 2, 1, 2, 2, 2, 2, 2, 2, 2, 1, 2, 1 ], 
-                [ 1, 2, 1, 1, 2, 2, 1, 2, 2, 1, 1, 2, 1 ] 
-            ];
-
-            function loadImage(list, endLoad) 
-            {
-
-                var imgLoad = new Array();
-                imgLoad.isReady = false;
-                imgLoad.remainsToLoad = list.length;
-                    for (var i = 0; i < list.length; i++) 
-                    {
-                        imgLoad[i] = new Image();
-                        imgLoad[i].isReady = false;
-                        imgLoad[i].parent = imgLoad;
-                        //imgLoad[i].crossOrigin = 'file://';
-                        imgLoad[i].onload = function () 
-                                                        {
-                                                            this.onload = null;
-                                                            this.isReady = true;
-                                                            this.parent.remainsToLoad--;
-                                                            if (this.parent.remainsToLoad == 0) 
-                                                            {
-                                                                this.parent.isReady = true;
-                                                                if(typeof endLoad !== 'undefined') endLoad();
-                                                            }
-                                                        };
-                        imgLoad[i].src = list[i];
-                    }
-                return imgLoad;
-            }
-
-            var mur;
-            
-            function startLoading() 
-            {
-                mur=loadImage([ 
-                                "assets/img/mur0.png", "assets/img/mur1.png", "assets/img/mur2.png", "assets/img/mur3.png", 
-                                "assets/img/mur4.png", "assets/img/mur5.png", "assets/img/mur6.png", "assets/img/mur7.png", 
-                                "assets/img/mur8.png", "assets/img/mur9.png", "assets/img/mur10.png", "assets/img/mur11.png", 
-                                "assets/img/mur12.png", "assets/img/mur13.png", "assets/img/mur14.png", "assets/img/mur15.png"
-                              ], LoadPacman);
-            }
-
-            var pacman;
-
-            function LoadPacman() 
-            {
-                pacman = loadImage(["assets/img/pacman.png"], endLoadPacman);
-            }
-
-            function endLoadPacman() 
-            {   
-                drawLevel();
-            }
-
-            var xPacman=yPacman=0;
-
-            function drawLevel()
-            {
-
-                var canvas = document.getElementById('myCanvas');
-                var ctx = canvas.getContext('2d');
-
-                ctx.fillStyle = "lightgrey"; 
-                ctx.fillRect(0, 0, 1600, 800);
-
-                for(let row=0 ; row<level.length ; row++) 
-                {
-                    for(let column=0 ; column<level[row].length ; column++) 
-                    {
-                        var y = row * cellSIZE;
-                        var x = column * cellSIZE;
-
-                        ctx.drawImage(mur[level[row][column]],
-                        0,0,cellSIZE,cellSIZE,
-                        x,y,cellSIZE,cellSIZE);
-                    }
-                }
-            }
-
-            startLoading();
-
-            setTimeout(drawLevel,1000/60);
-            
-
-        </script>
-
-        <script>
-
-            
-
-        </script>
-
+        
+        <div id="labyrinthe"> </div>
 
         <footer>
-            <p> Projet Étudiant | © 2021 - Studio Pixel | Normandie Web School </p>
+            <p> Projet Étudiant | © 2021 - Studio Pixel | Normandie Web Shcool </p>
         </footer>
 
     </body>
-    
+
+    <!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+    <!-- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- --- -->
+
+    <script>
+
+        /* définition de la position initiale de pacman */
+        pacman = 
+        {
+            x: 6,   // axe des x ( colonne )
+            y: 4    // axe des y ( ligne )
+        };
+
+        /* création du labyrinthe avec des array dans un grand array */ // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array
+        tableau = 
+        [ 
+            [ 1, 1, 1, 1, 1, 1, 1, 1 ,1 ,1 ,1, 1, 1 ], 
+            [ 1, 3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 3, 1 ], 
+            [ 1, 0, 1, 1, 1, 0, 0, 1, 0, 1, 1, 0, 1 ], 
+            [ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 ], 
+            [ 1, 0, 0, 0, 1, 1, 2, 1, 1, 0, 0, 0, 1 ], 
+            [ 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1 ], 
+            [ 1, 0, 1, 1, 0, 1, 1, 1, 0, 1, 1, 0, 1 ], 
+            [ 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1 ],
+            [ 1, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 1 ],
+            [ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ]
+        ];
+
+        var labyrinthe = document.getElementById("labyrinthe");
+        
+        /* fonction de dessin du labyrinthe selon le chiffre présent dans les index des array */ // https://developer.mozilla.org/en-US/docs/Web/API/Element/innerHTML
+        function dessinerLabyrinthe()
+        {
+            labyrinthe.innerHTML = '';                                              // on vide la <div> de labyrinthe
+            
+            for(let ligne = 0; ligne < tableau.length ; ligne++)                    // pour ligne fait 0 ; tant que ligne < tableau.longueur ; fait que ligne augmente
+            {
+                for(let colonne = 0; colonne < tableau[ligne].length ; colonne++)   // pour colonne fait 0 ; tant que colonne < tableau.longueur ; fait que colonne augmente
+                {		
+                    if (tableau[ligne][colonne] === 1)                              // sinon la case === 1
+                    {                                                               // alors
+                        labyrinthe.innerHTML += "<div class='mur'></div>";          // affiche la case de murs
+                    }
+                    else if (tableau[ligne][colonne] === 0)                         // sinon la case === 0
+                    {                                                               // alors
+                        labyrinthe.innerHTML += "<div class='caseVide'></div>";     // affiche une case vide
+                    }
+                    else if (tableau[ligne][colonne] === 2)                         // sinon la case === 2
+                    {                                                               // alors
+                        labyrinthe.innerHTML += "<div class='pacman'></div>";       // affiche pacman
+                    }
+                    else if (tableau[ligne][colonne] === 3)                         // sinon la case === 2
+                    {                                                               // alors
+                        labyrinthe.innerHTML += "<div class='pacgum'></div>";       // affiche pacman
+                    }
+                }
+                labyrinthe.innerHTML += "<br>"; // retour à la ligne à la fin de chaque ligne du tableau
+            }
+        }
+
+        dessinerLabyrinthe(); // appel de la fonction pour afficher le labyrinthe
+
+        /* evenement de déplacement de pacman (recharge le tableau) */ // https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
+        document.onkeydown = function(event)                           // https://developer.mozilla.org/en-US/docs/Web/API/GlobalEventHandlers/onkeydown
+        {
+            /* déplacement à gauche */
+            if (event.keyCode === 37) // si flèche de gauche pressée   // https://developer.mozilla.org/en-US/docs/Web/API/Event
+            {
+                if (tableau[pacman.y][pacman.x-1] !== 1)   // si la case visée est différente d'un mur
+                {                                           // alors 
+                    tableau[pacman.y][pacman.x] = 0;        // la case de pacman devient vide
+                    pacman.x = pacman.x - 1;                // les coordonnées de pacman se modifient sur l'axe x
+                    tableau[pacman.y][pacman.x] = 2;        // pacman s'affiche à sa nouvelle position
+                    dessinerLabyrinthe();                   // dessine le tableau avec les coordonnées modifiées
+                }
+            }
+            /* déplacement en haut */
+            else if (event.keyCode === 38) // sinon flèche du haut pressée
+            { 
+                if (tableau[pacman.y-1][pacman.x] !== 1) 
+                {                                     
+                    tableau[pacman.y][pacman.x] = 0;
+                    pacman.y = pacman.y - 1;
+                    tableau[pacman.y][pacman.x] = 2;
+                    dessinerLabyrinthe(); 
+                }
+            }
+            /* déplacement à droite */
+            else if (event.keyCode === 39) // sinon flèche de droite pressée
+            { 
+                if (tableau[pacman.y][pacman.x+1] !== 1) 
+                {
+                    tableau[pacman.y][pacman.x] = 0;
+                    pacman.x = pacman.x + 1;
+                    tableau[pacman.y][pacman.x] = 2;
+                    dessinerLabyrinthe(); 
+                }
+            }
+            /* déplacement en bas */
+            else if (event.keyCode === 40) // sinon flèche du bas pressée
+            { 
+                if (tableau[pacman.y+1][pacman.x] !== 1) 
+                {
+                    tableau[pacman.y][pacman.x] = 0;
+                    pacman.y = pacman.y + 1;
+                    tableau[pacman.y][pacman.x] = 2;
+                    dessinerLabyrinthe(); 
+                }
+            }
+
+            console.log(tableau); // surveillance de l'array du tableau depuis la console
+
+        }
+
+    </script>
+
+
 </html>
