@@ -1,0 +1,272 @@
+                    /*---------*\
+                    /*  INDEX  *\
+                    /*---------*\
+/* 
+                1. GENERAL = l.15
+                2. HUD = l.44
+                3. Tiles & Sprites = l.94
+                4. Canvas = l.281
+ */
+
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+
+    /****************/
+    /** 1. GENERAL **/
+    /****************/
+
+html, body
+{
+    margin: 0px;
+    padding: 0px;
+    border-width: 0px;
+    width: 100%;
+    height: 100%;
+
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+}
+header
+{
+    height: 200px;
+    width: 100%;
+}
+footer
+{
+    text-align: center;
+    font-size: 20px;
+}
+
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+
+/**************/ 
+/*** 2. HUD ***/
+/**************/ 
+
+/* Le header est le container pour le HUD */
+/* HUD et HUDelements */
+#HUD 
+{
+    height: 200px;
+    text-align: center;
+}
+.HUDelements
+{
+    width: 18%;
+    display: inline-block;
+    border-style: dotted;
+}
+.HUDelements#StartButtonHUD
+{
+    border-style: none;
+    font-size: 100px;
+}
+
+/* Chaque element du HUD */
+
+/* Vies et Boosts */
+#PlayerInfos
+{
+    background-color: rgb(206, 206, 206);
+    font-size: 120%;
+}
+.LifePoints
+{
+    display: inline
+}
+.BoostPoints
+{
+    display: inline
+}
+
+/* Bouton du Menu Principal */
+#StartButton
+{
+    font-size: 100%;
+    border: none;
+}
+
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+
+/************************/ 
+/** 3. Tiles & Sprites **/
+/************************/ 
+
+/* --  MURS -- */
+.mur0
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur0.png');
+    display: inline-block;
+}
+.mur1
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur1.png');
+    display: inline-block;
+}
+.mur2
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur2.png');
+    display: inline-block;
+}
+.mur3
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur3.png');
+    display: inline-block;
+}
+.mur4
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur4.png');
+    display: inline-block;
+}
+.mur5
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur5.png');
+    display: inline-block;
+}
+.mur6
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur6.png');
+    display: inline-block;
+}
+.mur7
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur7.png');
+    display: inline-block;
+}
+.mur8
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur8.png');
+    display: inline-block;
+}
+.mur9
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur9.png');
+    display: inline-block;
+}
+.mur10
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur10.png');
+    display: inline-block;
+}
+.mur11
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur11.png');
+    display: inline-block;
+}
+.mur12
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur12.png');
+    display: inline-block;
+}
+.mur13
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur13.png');
+    display: inline-block;
+}
+.mur14
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur14.png');
+    display: inline-block;
+}
+.mur15
+{
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur15.png');
+    display: inline-block;
+}
+/* --  FANTOMES -- */
+
+
+/* --  PACMAN -- */
+.pacman 
+{
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url("/V2/assets/img/pacman.png");
+    display: inline-block;
+}
+
+/* --  PIECES -- */
+
+
+/* --  BONUS -- */
+.pacgum
+{   
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/pacgum.png');
+    display: inline-block;
+}
+
+/* --------------- *//* --------------- */
+/* tiles & sprites pacmanPrototype.html */
+/* --------------- *//* --------------- */
+.mur 
+{   /* tile des murs */
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur15.png');
+    display: inline-block;
+}
+.caseVide 
+{   /* tile des cases vides */
+    background-size: cover;
+    width: 50px;
+    height: 50px;
+    background-image: url('/V2/assets/img/mur0.png');
+    display: inline-block;
+}
+
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+/* ---------------------*//* --------------- *//* --------------- *//* --------------- */
+
+/****************/ 
+/** 4. Canvas **/
+/***************/ 
+
+#myCanvas /* canvas du jeu */
+{
+    width: 1600px; height: 800px; /* dimensions du canvas */
+    margin-left: 160px; margin-right: 160px; /* margin du canvas */
+    background-color: rgb(255, 255, 255); /* couleur de fond du canvas */
+    border: 5px double black; /* cbordure du canvas */
+
+}
+
+
