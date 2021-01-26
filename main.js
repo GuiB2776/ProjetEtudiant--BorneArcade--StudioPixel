@@ -1,17 +1,20 @@
-// startAt 12h00 endAt 12h26 => 26m labyrinthe
-// startAt 16h50 endAt 17h12 => 22m pacman deplacement colision
-// startAt 17h35 endAt 19h00 => 85m anim pacman rotation gameplay
-// startAt 20h50 endAt 22h00 => 70m gestion des levels et pastilles
-
+//// PACMAN ////
 
 /* définition des constantes */
 const largeurLaby = 25;
 const hauteurLaby = 15;
 const tailleCelluleLaby = 50;
 
+// const taillePacman = tailleCelluleLaby * 0.7 ; 	
+const taillePacman = 25;
+const distanceCollision = ((taillePacman**2) + (taillePacman**2));
+
 const canvasWidth = largeurLaby * tailleCelluleLaby ;
 const canvasHeight = hauteurLaby * tailleCelluleLaby ;
 var canvasContext;
+
+var score = 0;
+var nbVies = 3;
 
 /* définition du labyrinthe dans un tableau contenant un tableau par ligne */
 var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '5', '3','13', '1', '3', '9', '5', '5', '5', '5', '5', '3'],              // 1
@@ -31,6 +34,7 @@ var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '
 			['12', '5', '5', '5', '5',' 5',' 4',' 5',' 4', '7','15','12',' 5',' 6','15','13',' 4',' 5',' 4',' 5',' 5',' 5', '5',' 5',' 6'],				 // 15
 		   ];
 		//	  01   02   03   04   05   06   07   08   09   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25 
+
 
 var level = 0;
 var definitionLevel=[ 
@@ -94,33 +98,52 @@ function endLoadGost() 		// fonction de chargement du canvas >>> ses paramètres
 	canvas.height = canvasHeight;												//taille du canvas en largeur
 	canvasContext = canvas.getContext("2d");									// contexte du canvas en 2D
 	document.getElementById("canvas").style.display="";							// affichage du canvas avec l'attribut display:""; / display:"none";
+
+	document.getElementById("message").innerHTML="test message";				// affichage message en haut à droite
 	
 	pacman.init(definitionLevel[level]);										//initialisation du pac man dans le niveau selectioner
 	gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
+	gost2.init(definitionLevel[level]);	
 	createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);	//création des pillules
 
 	loopMain(); // appel de la fonction loopmain
 }
 
-
-
+var nbPillule = 0;
+//// ---- Boucle principale ---- ////
 function loopMain() 	// définition de la boucle principale
 {  
+	canvasContext.fillStyle = "#ffffff";
+	canvasContext.fillRect(0, 0, 1920, 1080);
 	
 	var nbPillule=drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
 	pacman.update(definitionLevel[level]);						// mise à jour du pacman
 	gost.update(definitionLevel[level]);						// mise à jour des fantômes 
+	gost2.update(definitionLevel[level]);
 	
 	if(!nbPillule) 
 	{											// s'il n'y a plus de pièces, on relance le niveau
 		pacman.init(definitionLevel[level]);
 		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY); // recréation des pièces
 	}
+
+	if( pacman.mort == true)
+	{
+
+		pacman.mort = false;
+		pacman.init(definitionLevel[level].labyrinthe,definitionLevel[level]);
+		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);
+
+		document.getElementById("message").innerHTML="Vous avez perdu";
+		
+	}
+
 	setTimeout(loopMain, 1000/60);	// délais de chargement de 1000 millisecondes / 60
+
 }
 
 
-
+//// ---- PACMAN ---- ////
 const delaiDemandeMax=20;	// constante du délais des commandes directionnelle // permet de mettre un délai pour tourner ( 20 frames )
 var pacman=					// définition de pacman
 {
@@ -135,6 +158,9 @@ var pacman=					// définition de pacman
 	vitesseAnim:6,
 	vAnim:0,
 	noAnim:0,
+
+	mort: false,
+
 	
 	init(paramLevel) 		// initialisation des paramètres du niveau pour son affichage >>> 
 	{			
@@ -171,7 +197,7 @@ var pacman=					// définition de pacman
 			}
 		}
 				
-		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) 
+		if( (this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse ) 
 		{     
 			if(this.delaiDemande>0) 
 			{
@@ -202,7 +228,7 @@ var pacman=					// définition de pacman
 		switch(this.direction) 			// choix de la direction
 		{	
 			case 1:
-			 this.y-=this.vitesse;		// axe du dépalcement
+			 this.y-=this.vitesse;		// axe du déplacement
 			 break;
 			case 2:
 			 this.x+=this.vitesse;		// axe du dépalcement
@@ -253,26 +279,43 @@ var pacman=					// définition de pacman
 		canvasContext.drawImage(imagePacman[this.noAnim],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
+
 		canvasContext.restore();
 		
-		var xPillule=parseInt(this.x/tailleCelluleLaby);
-		var yPillule=parseInt(this.y/tailleCelluleLaby);
-		paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(1<<4);
+		var xPillule = parseInt(this.x/tailleCelluleLaby);
+		var yPillule = parseInt(this.y/tailleCelluleLaby);
+		// paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(1<<4);
 
-		if(this.direction&10)
+		// pièce du centre
+		if(paramLevel.labyrinthe[yPillule][xPillule]&(1<<4))
+		{
+			paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(1<<4);
+			score++;
+		}
+
+		// pièce de droite
+		if( (this.direction&10) && (this.x%tailleCelluleLaby)>4 && paramLevel.labyrinthe[yPillule][xPillule]&(2<<4) )
 		{
 			paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(2<<4);
+			score++;
 		}
 
-		if(this.direction&5)
+		// pièce du sud
+		if( (this.direction&5) && (this.y%tailleCelluleLaby)>4 && paramLevel.labyrinthe[yPillule][xPillule]&(4<<4) )
 		{ 
 			paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(4<<4);
+			score++;
 		}
+		
+		document.getElementById("message").innerHTML = score + " / " + nbPillule;
+
 	},
 };
 
 
-function drawLaby(laby){		// création du labyrinthe avec une double boucle for
+//// ---- DESSIN Labyrinthe ---- ////
+function drawLaby(laby)							// création du labyrinthe avec une double boucle for
+{		
 
 	var pillule;
 	canvasContext.fillStyle="#000000";
@@ -317,7 +360,13 @@ function drawLaby(laby){		// création du labyrinthe avec une double boucle for
 	return cptPillule;
 }
 
-function createPillules(laby,x,y) {  // création des pièces dans le labyrinthe
+
+
+//// ---- mise en place des pièces à ramasser ---- ////
+function createPillules(laby,x,y) 									// création des pièces dans le labyrinthe
+{ 
+	laby[y][x]|=1<<7;   // 
+
 	laby[y][x]|=1<<4;
 	if(!(laby[y][x]&2)) laby[y][x]|=2<<4;
 	if(!(laby[y][x]&4)) laby[y][x]|=4<<4;
@@ -326,6 +375,10 @@ function createPillules(laby,x,y) {  // création des pièces dans le labyrinthe
 	if(!(laby[y][x]&4) && !(laby[y+1][x]&(1<<4))) createPillules(laby,x,y+1);
 	if(!(laby[y][x]&8) && !(laby[y][x-1]&(1<<4))) createPillules(laby,x-1,y);
 }
+
+
+
+//// ---- FANTÔMES ---- ////
 
 var gost=		 // paramètres et mise en place du/des fantomes
 {   
@@ -336,13 +389,13 @@ var gost=		 // paramètres et mise en place du/des fantomes
 	vitesse:2,			//choix de la vitesse du fantôme
 	
 	init(paramLevel) {
-		this.x=12*tailleCelluleLaby;		//position x de départ du fantôme
+		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
 		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
 	},
 	
 	update(paramLevel) {
 				
-		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) {     // ??? je ne suis pas sur 
+		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) {     
 			if(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) {
 				while(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) {
 					this.direction=2**Math.floor(Math.random()*4);
@@ -377,5 +430,79 @@ var gost=		 // paramètres et mise en place du/des fantomes
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();
+
+		// test collision avec Pacman
+		var dx = this.x-pacman.x;
+		var dy = this.y-pacman.y;
+		if( (dx**2) + (dy**2) < distanceCollision ) 
+		{
+			pacman.mort = true;
+		}
+
+
+	},
+}; 
+
+
+
+var gost2=		 // paramètres et mise en place du fantôme 2
+{   
+	
+	x:0,
+	y:0,
+	direction:4,		//choix de la direction du fantôme
+	vitesse:2,			//choix de la vitesse du fantôme
+	
+	init(paramLevel) {
+		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
+		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+	},
+	
+	update(paramLevel) {
+				
+		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) {     
+			if(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) {
+				while(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) {
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+			} else {
+				var demiTour=(this.direction<<2);if(demiTour>15) demiTour>>=4;
+				this.direction=2**Math.floor(Math.random()*4);
+				while(this.direction==demiTour || paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) {
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+			}
+			this.x=(parseInt(this.x/tailleCelluleLaby))*tailleCelluleLaby;
+			this.y=(parseInt(this.y/tailleCelluleLaby))*tailleCelluleLaby;
+		}
+		switch(this.direction) {
+			case 1:
+			 this.y-=this.vitesse;
+			 break;
+			case 2:
+			 this.x+=this.vitesse;
+			 break;
+			case 4:
+			 this.y+=this.vitesse;
+			 break;
+			case 8:
+			 this.x-=this.vitesse;
+			 break;
+		}
+
+		canvasContext.save();
+		canvasContext.drawImage(imageGost[0],
+								0,0,tailleCelluleLaby,tailleCelluleLaby,
+								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
+		canvasContext.restore();
+
+		// test collision avec Pacman
+		var dx = this.x-pacman.x;
+		var dy = this.y-pacman.y;
+		if( (dx**2) + (dy**2) < distanceCollision ) 
+		{
+			pacman.mort = true;
+		}
+
 	},
 }; 
