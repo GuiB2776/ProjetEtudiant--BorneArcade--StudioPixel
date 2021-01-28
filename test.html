@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <div id="affichage"></div>
+
+        <script>
+                    
+            function AfficherResultat(fct, bool)
+            {
+                let a = document.getElementById("affichage");
+                let li = document.createElement("LI");
+
+                li.textContent = fct + " => " + (bool ? "Success" : "Fail"); 
+
+                a.appendChild(li);
+            }
+
+            function Addition(a, b)
+            {
+                return (a + b);
+            }
+
+            // Succès
+            AfficherResultat("Test 1", Addition(1, 1) == 2);
+
+            // Fail
+            AfficherResultat("MAchin2", Addition(2, 2) == 5);
+
+        </script>
+
+    </body>
+</html>

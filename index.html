@@ -3,10 +3,12 @@
 
   <head>
     <meta charset="utf-8">
-    <title> PacMan V3 </title>
+    <title> PacMan V3 - Studio Pixel</title>
     <link rel="stylesheet" href ="style.css">
+    <link rel="stylesheet" href="gameOver.css">
     <script src="main.js"></script>
     <script src="Utils.js"></script>
+    <script src="gameOver.js"></script>
   </head>
 
   <body onload="start();"> <!-- appel de la fonction "start()" au chargement du <body>, pour démarrer le chargement des éléments -->
@@ -16,17 +18,39 @@
         <p> Pacman NWS </p>
       </div>
 
+      <!-- Div du HUD -->
+      <div>
+        <div id="nbVies"> 
+          <img href="" >
+          <img href="" >
+          <img href="" > 
+        </div>
+      </div>
+
+      <div id="message"  style="position:fixed;left:1024px;top:0px;"> affichage des messages </div>
+
       <!-- Div du canvas de jeu -->
       <div id="jeu" style="display:none">
+
         <p> Page du jeu </p>
         <canvas id="canvas" style="display:none"></canvas>
-        <div id="message"  style="position:fixed;left:1024px;top:0px;"> affichage des messages </div>
+
       </div>
 
       <!-- Page des scores -->
       <div id="saisieHiscore" style="display:none">
         <p> Page des scores </p>
       </div>
+
+      <!-- Popup GameOver -->
+    <div id="myModal" class="modal">
+      <!-- Contenu de la Popup -->
+      <div class="modal-content">
+        <span id="close"> &times; </span>
+        <p> Game Over  </p>
+        <p> Vous avez perdu  </p>
+      </div>      
+    </div>
     
   </body>
 
