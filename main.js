@@ -82,9 +82,10 @@ var imageGost;
 function endLoadPacman()  // chargement des Ghosts, dans un tableau
 {     
 	imageGost=loadImage([		"assets/img/virus.png",
-								"assets/img/virus.png",
-								"assets/img/virus.png",
-								"assets/img/virus.png"], endLoadGost);	// appel de la fonction endLoadGhost qui définie le canvas
+								"assets/img/virusRouge.png",
+								"assets/img/virusOrange.png",
+								"assets/img/virusBleu.png",
+								"assets/img/virusViolet.png"], endLoadGost);	// appel de la fonction endLoadGhost qui définie le canvas
 }
 
 
@@ -107,6 +108,8 @@ function endLoadGost() 		// fonction de chargement du canvas >>> ses paramètres
 	pacman.init(definitionLevel[level]);										//initialisation du pac man dans le niveau selectioner
 	gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
 	gost2.init(definitionLevel[level]);	
+	gost3.init(definitionLevel[level]);	
+	gost4.init(definitionLevel[level]);	
 	createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);	//création des pillules
 
 	loopMain(); // appel de la fonction loopmain
@@ -125,8 +128,10 @@ function loopMain() 	// définition de la boucle principale
 	pacman.update(definitionLevel[level]);							// mise à jour du pacman
 	gost.update(definitionLevel[level]);							// mise à jour des fantômes 
 	gost2.update(definitionLevel[level]);
+	gost3.update(definitionLevel[level]);
+	gost4.update(definitionLevel[level]);
 
-	document.getElementById("message").innerHTML = score + " / " + nbPillule ;
+	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule;
 	
 	if( !nbPillule )  
 	{											// s'il n'y a plus de pièces, on relance le niveau
@@ -136,12 +141,12 @@ function loopMain() 	// définition de la boucle principale
 
 	if( pacman.mort == true )
 	{
-		popupGameOver();
+		popUpGameOver();
 		pacman.mort = false;
 		pacman.init(definitionLevel[level].labyrinthe,definitionLevel[level]);
 		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);
 
-		document.getElementById("message").innerHTML="Vous avez perdu";
+		document.getElementById("message").innerHTML= "Score :" + score + " // " + " Points restant :" + nbPillule;
 
 	}
 
@@ -380,9 +385,8 @@ function drawLaby(laby)							// création du labyrinthe avec une double boucle 
 
 //// ---- mise en place des pièces à ramasser ---- ////
 function createPillules(laby,x,y) 									// création des pièces dans le labyrinthe
-{ 
+{
 	// laby[y][x]|=1<<7;   // bonus
-
 	laby[y][x]|=1<<4;
 	if(!(laby[y][x]&2)) laby[y][x]|=2<<4;
 	if(!(laby[y][x]&4)) laby[y][x]|=4<<4;
@@ -390,13 +394,12 @@ function createPillules(laby,x,y) 									// création des pièces dans le laby
 	if(!(laby[y][x]&2) && !(laby[y][x+1]&(1<<4))) createPillules(laby,x+1,y);
 	if(!(laby[y][x]&4) && !(laby[y+1][x]&(1<<4))) createPillules(laby,x,y+1);
 	if(!(laby[y][x]&8) && !(laby[y][x-1]&(1<<4))) createPillules(laby,x-1,y);
-
 }
 
 
 //// ---- FANTÔMES ---- ////
 
-var gost=		 // paramètres et mise en place du/des fantomes
+var gost =		 // paramètres et mise en place du/des fantomes
 {   
 	
 	x:0,
@@ -444,7 +447,7 @@ var gost=		 // paramètres et mise en place du/des fantomes
 		}
 
 		canvasContext.save();
-		canvasContext.drawImage(imageGost[0],
+		canvasContext.drawImage(imageGost[1],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();
@@ -461,7 +464,7 @@ var gost=		 // paramètres et mise en place du/des fantomes
 
 
 
-var gost2=		 // paramètres et mise en place du fantôme 2
+var gost2 =		 // paramètres et mise en place du fantôme 2
 {   
 	
 	x:0,
@@ -475,7 +478,8 @@ var gost2=		 // paramètres et mise en place du fantôme 2
 		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
 	},
 	
-	update(paramLevel) {
+	update(paramLevel) 
+	{
 				
 		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) 
 		{     
@@ -518,7 +522,159 @@ var gost2=		 // paramètres et mise en place du fantôme 2
 		}
 
 		canvasContext.save();
-		canvasContext.drawImage(imageGost[0],
+		canvasContext.drawImage(imageGost[2],
+								0,0,tailleCelluleLaby,tailleCelluleLaby,
+								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
+		canvasContext.restore();
+
+		// test collision avec Pacman
+		var dx = this.x-pacman.x;
+		var dy = this.y-pacman.y;
+		if( (dx**2) + (dy**2) < distanceCollision ) 
+		{
+			pacman.mort = true;
+		}
+
+	},
+}; 
+
+
+
+var gost3 =		 // paramètres et mise en place du fantôme 2
+{   
+	
+	x:0,
+	y:0,
+	direction:4,		//choix de la direction du fantôme
+	vitesse:2,			//choix de la vitesse du fantôme
+	
+	init(paramLevel) 
+	{
+		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
+		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+	},
+	
+	update(paramLevel) 
+	{
+				
+		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) 
+		{     
+			if(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) 
+			{
+				while(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) 
+				{
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+			} 
+			else 
+			{
+				var demiTour=(this.direction<<2);
+				if(demiTour>15) demiTour>>=4;
+				{
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+				while(this.direction==demiTour || paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) 
+				{
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+			}
+			this.x=(parseInt(this.x/tailleCelluleLaby))*tailleCelluleLaby;
+			this.y=(parseInt(this.y/tailleCelluleLaby))*tailleCelluleLaby;
+		}
+		switch(this.direction) 
+		{
+			case 1:
+			 this.y-=this.vitesse;
+			 break;
+			case 2:
+			 this.x+=this.vitesse;
+			 break;
+			case 4:
+			 this.y+=this.vitesse;
+			 break;
+			case 8:
+			 this.x-=this.vitesse;
+			 break;
+		}
+
+		canvasContext.save();
+		canvasContext.drawImage(imageGost[3],
+								0,0,tailleCelluleLaby,tailleCelluleLaby,
+								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
+		canvasContext.restore();
+
+		// test collision avec Pacman
+		var dx = this.x-pacman.x;
+		var dy = this.y-pacman.y;
+		if( (dx**2) + (dy**2) < distanceCollision ) 
+		{
+			pacman.mort = true;
+		}
+
+	},
+}; 
+
+
+
+var gost4=		 // paramètres et mise en place du fantôme 2
+{   
+	
+	x:0,
+	y:0,
+	direction:4,		//choix de la direction du fantôme
+	vitesse:2,			//choix de la vitesse du fantôme
+	
+	init(paramLevel) 
+	{
+		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
+		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+	},
+	
+	update(paramLevel) 
+	{
+				
+		if((this.x%tailleCelluleLaby)<this.vitesse && (this.y%tailleCelluleLaby)<this.vitesse) 
+		{     
+			if(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) 
+			{
+				while(paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) 
+				{
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+			} 
+			else 
+			{
+				var demiTour=(this.direction<<2);
+				if(demiTour>15) demiTour>>=4;
+				{
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+				while(this.direction==demiTour || paramLevel.labyrinthe[parseInt(this.y/tailleCelluleLaby)][parseInt(this.x/tailleCelluleLaby)]&this.direction) 
+				{
+					this.direction=2**Math.floor(Math.random()*4);
+				}
+			}
+			this.x=(parseInt(this.x/tailleCelluleLaby))*tailleCelluleLaby;
+			this.y=(parseInt(this.y/tailleCelluleLaby))*tailleCelluleLaby;
+		}
+		switch(this.direction) 
+		{
+			case 1:
+			 this.y-=this.vitesse;
+			 break;
+			case 2:
+			 this.x+=this.vitesse;
+			 break;
+			case 4:
+			 this.y+=this.vitesse;
+			 break;
+			case 8:
+			 this.x-=this.vitesse;
+			 break;
+		}
+
+		canvasContext.save();
+		canvasContext.drawImage(imageGost[4],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();

@@ -1,33 +1,39 @@
-function popupGameOver()
-{
-    // sélectionner la div de la popup
-    var modal = document.getElementById("myModal");
 
-    // sélectionner le <span> de la popup pour la refermer
-    var span = document.getElementById("close");
+// -----------------------------------------------------------------//
+
+
+function popUpGameOver()
+{
+    // sélection de la div de la popup
+    var popupGameOver = document.getElementById("popupGameOver");
+
+    // sélection du <span> de la popup pour la refermer
+    var fermerPopUp = document.getElementById("fermerPopUp");
 
     // Si (pacman.mort == true) alors affiche la Popup
     function gameOver()
     {
-        modal.style.display = "block";
+        popupGameOver.style.display = "block";
     }
     // condition d'affichage de la popup
     if( pacman.mort == true )
 	{
-		gameOver();
+        gameOver();
+        document.getElementById("popupScore").innerHTML= score;
+        document.getElementById("popupTimer").innerHTML= "00:00:00";
     }
     
     // Refermer la Popup
-    span.onclick = function() 
+    fermerPopUp.onclick = function() 
     {
-        modal.style.display = "none";
+        popupGameOver.style.display = "none";
     }
     // en cliquant en dehors
     window.onclick = function(event) 
     {
-        if (event.target == modal) 
+        if (event.target == popupGameOver) 
         {
-            modal.style.display = "none";
+            popupGameOver.style.display = "none";
         }
     }
 }

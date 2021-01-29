@@ -1,0 +1,53 @@
+function pickUpNearestCoin() 
+{
+    var items = hero.findItems();
+    var nearestCoin = hero.findNearest(items);
+    if(nearestCoin) 
+    {
+        hero.move(nearestCoin.pos);
+    }
+}
+
+function summonSoldier() 
+{
+    var costOfSoldier = hero.costOf("soldier");
+    
+    if ( hero.gold > costOfSoldier )
+    {
+        hero.summon("soldier");
+    }
+}
+
+function commandSoldiers() 
+{
+    var friends = hero.findFriends();
+    for(let i=0; i < friends.length; i++) 
+    {
+        var enemy = friends[i].findNearestEnemy();
+        if(enemy)
+        {
+            hero.command(friends[i],"attack", enemy);
+        }
+    }
+}
+
+function attackEnemy() 
+{
+    var enemy = hero.findNearestEnemy();
+    if(enemy)
+    {
+        var distance = hero.distanceTo(enemy);
+        if ( distance < 5 && hero.isReady("cleave") )
+        {
+            hero.cleave(enemy);
+        }
+    }
+}
+
+while(true) 
+{
+    pickUpNearestCoin();
+    summonSoldier();
+    commandSoldiers();
+    attackEnemy();
+}
