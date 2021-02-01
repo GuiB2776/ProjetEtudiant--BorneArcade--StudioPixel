@@ -54,3 +54,45 @@ html,body
 	margin: 0 auto;
 	display: inline-block;
 }
+
+/* Popup Game Over (background) */
+#popupGameOver 
+{
+    display: none; /* Caché avant activation */
+    position: fixed; /* Fixé */
+    z-index: 1; /* Reste devant le reste*/
+    left: 0;
+    top: 0;
+    width: 100%; /* Pleine longueur */
+    height: 100%; /* Pleine hauteur */
+    overflow: auto; /* Permet le scroll si besoin */
+    background-color: rgba(0,0,0,0.4); /* Noir et transparent */
+}
+  
+/* Contenu de la PopUp */
+#contenuPopUpGameOver 
+{
+    background-color: #fefefe;
+    margin: 20% auto; /* 20% en haut et centré */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* longueur :  */
+    text-align: center;
+}
+  
+/* boutton pour fermer la PopUp */
+#fermerPopUp 
+{
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+  
+#fermerPopUp:hover,
+#fermerPopUp:focus 
+{
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}

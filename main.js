@@ -11,7 +11,7 @@ const distanceCollision = ((taillePacman**2) + (taillePacman**2));
 
 const canvasWidth = largeurLaby * tailleCelluleLaby ;
 const canvasHeight = hauteurLaby * tailleCelluleLaby ;
-var canvasContext;
+var canvasContext ;
 
 var score = 0;
 var nbVies = 3;
@@ -89,7 +89,7 @@ function endLoadPacman()  // chargement des Ghosts, dans un tableau
 }
 
 
-
+const NbrGHOST = 4;
 function endLoadGost() 		// fonction de chargement du canvas >>> ses paramètres
 { 
 	
@@ -112,6 +112,9 @@ function endLoadGost() 		// fonction de chargement du canvas >>> ses paramètres
 	gost4.init(definitionLevel[level]);	
 	createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);	//création des pillules
 
+	//appel de l'objet dynamique ghost()
+	//ghost
+
 	loopMain(); // appel de la fonction loopmain
 }
 
@@ -126,12 +129,13 @@ function loopMain() 	// définition de la boucle principale
 	
 	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
 	pacman.update(definitionLevel[level]);							// mise à jour du pacman
+	//for ( var < )
 	gost.update(definitionLevel[level]);							// mise à jour des fantômes 
 	gost2.update(definitionLevel[level]);
 	gost3.update(definitionLevel[level]);
 	gost4.update(definitionLevel[level]);
 
-	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule;
+	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
 	
 	if( !nbPillule )  
 	{											// s'il n'y a plus de pièces, on relance le niveau

@@ -8,14 +8,13 @@
     <link rel="stylesheet" href="gameOver.css">
     <script src="main.js"></script>
     <script src="Utils.js"></script>
-    <!-- <script src="gameOver.js"> </script> -->
   </head>
 
   <body onload="start();" onload="chronoTimer();"> <!-- appel de la fonction "start()" au chargement du <body>, pour démarrer le chargement des éléments -->
 
     <div id="HUD">
       <p id="score" class="elementHUD"> score </p>
-      <p id="timer" class="elementHUD"> 00:00 </p>
+      <p id="chronotime" class="elementHUD"> 00:00 </p>
       <div class="elementHUD"> 
         <img id="vie1" href="assets/img/DrPacman.png"> </img>
         <img id="vie2" href="assets/img/DrPacman.png"> </img>
@@ -58,7 +57,7 @@
         <p> Game Over </p>
         <p> Vous avez perdu  </p>
         <p> Votre score est de : <span id="popupScore"> 00000 </span> </p>
-        <p> En <span id="popupTimer"> 00:00:00:00 </span> de temps </p>
+        <p> En <span id="chronotime"> 00:00:00:00 </span> de temps </p>
       </div>      
     </div>
     
