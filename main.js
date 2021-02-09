@@ -462,6 +462,7 @@ var gost =		 // paramètres et mise en place du/des fantomes
 		if( (dx**2) + (dy**2) < distanceCollision ) 
 		{
 			pacman.mort = true;
+			chronoStop();
 		}
 	},
 }; 
@@ -537,6 +538,7 @@ var gost2 =		 // paramètres et mise en place du fantôme 2
 		if( (dx**2) + (dy**2) < distanceCollision ) 
 		{
 			pacman.mort = true;
+			chronoStop();
 		}
 
 	},
@@ -613,6 +615,7 @@ var gost3 =		 // paramètres et mise en place du fantôme 2
 		if( (dx**2) + (dy**2) < distanceCollision ) 
 		{
 			pacman.mort = true;
+			chronoStop();
 		}
 
 	},
@@ -689,6 +692,7 @@ var gost4=		 // paramètres et mise en place du fantôme 2
 		if( (dx**2) + (dy**2) < distanceCollision ) 
 		{
 			pacman.mort = true;
+			chronoStop();
 		}
 
 	},

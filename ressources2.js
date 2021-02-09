@@ -21,9 +21,19 @@ if(this.direction&5)
 		document.getElementById("message").innerHTML = score + " / " + nbPillule;
 
 
+// ------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------- //
+// ------------------------------------------------------------------------------------------- //
+
 
 audioURL = "assets/sound/DrPacManSound.mp3" ;
 audioObj = new Audio(audioURL);					// https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement/Audio
+
+myAudioElement.addEventListener("canplaythrough", event => 
+{
+	/* the audio is now playable; play it if permissions allow */
+	myAudioElement.play();
+});
 
 
 
@@ -82,28 +92,29 @@ var laby3 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '
 		];
 	//	  01   02   03   04   05   06   07   08   09   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25 
 
+var playerLevel = level ;
 
-	function levelSwitcher()
+function levelSwitcher()
+{
+	if( playerLevel === 1)
 	{
-		if( playerLevel === 1)
-		{
-			definitionLevel=[ 
-				{labyrinthe:laby1,startX:5,startY:0,direction:0}, //sélection de la zone de départ du PacMan et sa direction
-			];
-		}
-		else if( playerLevel === 2)
-		{
-			definitionLevel=[ 
-				{labyrinthe:laby2,startX:0,startY:0,direction:0}, //sélection de la zone de départ du PacMan et sa direction
-			];
-		}
-		else if( playerLevel === 3)
-		{
-			definitionLevel=[ 
-				{labyrinthe:laby3,startX:12,startY:4,direction:0}, //sélection de la zone de départ du PacMan et sa direction
-			];
-		}
+		definitionLevel=[ 
+			{labyrinthe:laby1,startX:5,startY:0,direction:0}, //sélection de la zone de départ du PacMan et sa direction
+		];
 	}
+	else if( playerLevel === 2)
+	{
+		definitionLevel=[ 
+			{labyrinthe:laby2,startX:0,startY:0,direction:0}, //sélection de la zone de départ du PacMan et sa direction
+		];
+	}
+	else if( playerLevel === 3)
+	{
+		definitionLevel=[ 
+			{labyrinthe:laby3,startX:12,startY:4,direction:0}, //sélection de la zone de départ du PacMan et sa direction
+		];
+	}
+}
 
 
 

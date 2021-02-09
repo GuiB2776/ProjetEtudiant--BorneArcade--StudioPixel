@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Dr PacMan - Page d'Accueil </title>
+        <link rel="stylesheet" herf="style.css">
+
+
+        <style>
+            
+            @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+            .mediaViewInfo 
+            {
+                --web-view-name: Web 1920 – 1;
+                --web-view-id: Web_1920__1;
+                --web-scale-on-resize: true;
+                --web-enable-deep-linking: true;
+            }
+            :root 
+            {
+                --web-view-ids: Web_1920__1;
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                border: none;
+            }
+            #Web_1920__1 {
+                position: absolute;
+                width: 1920px;
+                height: 1080px;
+                background-color: rgba(32,32,32,1);
+                overflow: hidden;
+                --web-view-name: Web 1920 – 1;
+                --web-view-id: Web_1920__1;
+                --web-scale-on-resize: true;
+                --web-enable-deep-linking: true;
+            }
+            #Bg_menu {
+                position: absolute;
+                width: 1920px;
+                height: 1080px;
+                left: 0px;
+                top: 0px;
+                overflow: visible;
+            }
+            #logo_jeu_white {
+                position: absolute;
+                width: 624px;
+                height: 624px;
+                left: 648px;
+                top: -22px;
+                overflow: visible;
+            }
+            #Rectangle_2 {
+                fill: rgba(233,74,52,1);
+            }
+            .Rectangle_2 {
+                position: absolute;
+                overflow: visible;
+                width: 526px;
+                height: 94px;
+                left: 697px;
+                top: 565px;
+            }
+            #Tableaux_des_scores {
+                left: 823px;
+                top: 594px;
+                position: absolute;
+                overflow: visible;
+                width: 276px;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 30px;
+                color: rgba(255,255,255,1);
+            }
+            #Rectangle_1 {
+                fill: rgba(0,165,165,1);
+            }
+            .Rectangle_1 {
+                position: absolute;
+                overflow: visible;
+                width: 526px;
+                height: 94px;
+                left: 697px;
+                top: 421px;
+            }
+            #JOUER {
+                left: 914px;
+                top: 450px;
+                position: absolute;
+                overflow: visible;
+                width: 94px;
+                white-space: nowrap;
+                text-align: left;
+                font-family: Roboto;
+                font-style: normal;
+                font-weight: bold;
+                font-size: 30px;
+                color: rgba(255,255,255,1);
+            }
+            #Logo-studio {
+                position: absolute;
+                width: 165px;
+                height: 75px;
+                left: 878px;
+                top: 39px;
+                overflow: visible;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+        
+        <div id="Web_1920__1">
+            <img id="Bg_menu" src="assetsMenuPrincipal/Bg_menu.png">
+                
+            <img id="logo_jeu_white" src="assetsMenuPrincipal/logo_jeu_white.png">
+                
+            <svg class="Rectangle_2">
+                <rect id="Rectangle_2" rx="47" ry="47" x="0" y="0" width="526" height="94">
+                </rect>
+            </svg>
+            <div id="Tableaux_des_scores">
+                <span>Tableaux des scores</span>
+            </div>
+            <svg class="Rectangle_1">
+                <rect id="Rectangle_1" rx="47" ry="47" x="0" y="0" width="526" height="94">
+                </rect>
+            </svg>
+            <div id="JOUER">
+                <span> JOUER </span>
+            </div>
+            <img id="Logo-studio" src="assetsMenuPrincipal/Logo-studio.png">
+                
+        </div>
+        
+
+    </body>
+
+
+</html>
