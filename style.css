@@ -1,98 +1,155 @@
+/*--------------*/
+/*-- SOMMAIRE --*/
+/*--------------*/
+
+/* 	
+	1. GÉNÉRAL = l.16
+	2. Page d'Accueil = l.
+	3. Jeu & assets = l.
+	4. GameOver = l.
+/*
+
+/*----------------*//*----------------*//*----------------*//*----------------*/
+/*----------------*//*----------------*//*----------------*//*----------------*/
+
+/*------------------*/
+/*--- 1. GÉNÉRAL ---*/
+/*------------------*/
+
 html,body 
 {
-	margin:0 auto;
-	padding:0px;
-	border-width:0px;
-	width:100%;
-	height:100%;
+	margin : 0 auto;
+	padding : 0px;
+	border-width : 0px;
+	width : 100%;
+	height : 100%;
 }
+
+/*----------------*//*----------------*//*----------------*//*----------------*/
+/*----------------*//*----------------*//*----------------*//*----------------*/
+
+/*--------------------------*/
+/*--- 2. Page d'Accueil ----*/
+/*--------------------------*/
+
+
+
+
+
+
+/*----------------*//*----------------*//*----------------*//*----------------*/
+/*----------------*//*----------------*//*----------------*//*----------------*/
+
+/*------------------------*/
+/*--- 3. Jeu & assets ----*/
+/*------------------------*/
 
 #canvas
 {
-	position:fixed;
-	top:50px;
-	left:50px; 
+	position : fixed;
+	top : 200px;
+	margin: 0 auto;
 }
 
 #presentation 
 {
-	position:fixed;
-	top:0px;
-	left:0px;
-	width:100%;
-	height:100%;
+	position : fixed;
+	top : 0px;
+	left : 0px;
+	width : 100%;
+	height : 100%;
 }
 
 #jeu 
 {
-	position:fixed;
-	top:0px;
-	left:0px;
-	width:100%;
-	height:100%;
+	position : fixed;
+	display : block;
+
+	top : 200px;
+	margin : 0 auto;
+
+	width : 1600px;
+	height : 880px;
 	
 }
 
 #saisieHiscore 
 {
-	position:fixed;
-	top:0px;
-	left:0px;
-	width:100%;
-	height:100%;
+	position : fixed;
+	display : block;
+	
+	top : 0px;
+	left : 0px;
+
+	width : 100%;
+	height : 100%;
+
+	margin : 0 auto;
 }
 
 #HUD
 {
-	width: 100%;
-	height: 100px;
-	position:fixed;
-	left:100px;top:10px;
+	position : fixed;
+	display : block;
+
+	width : 100%;
+	height : 150px;
+
+	margin : 0 auto;
+	text-align : center;
 }
 .elementHUD
 {
-	margin: 0 auto;
-	display: inline-block;
+	margin : 0 auto;
+	display : inline-block;
+	padding : 3em;
 }
+
+/*----------------*//*----------------*//*----------------*//*----------------*/
+/*----------------*//*----------------*//*----------------*//*----------------*/
+
+/*--------------------*/
+/*--- 4. GameOver ---*/
+/*-------------------*/
 
 /* Popup Game Over (background) */
 #popupGameOver 
 {
-    display: none; /* Caché avant activation */
-    position: fixed; /* Fixé */
-    z-index: 1; /* Reste devant le reste*/
-    left: 0;
-    top: 0;
-    width: 100%; /* Pleine longueur */
-    height: 100%; /* Pleine hauteur */
-    overflow: auto; /* Permet le scroll si besoin */
-    background-color: rgba(0,0,0,0.4); /* Noir et transparent */
+    display : none; /* Caché avant activation */
+    position : fixed; /* Fixé */
+    z-index : 1; /* Reste devant le reste*/
+    left : 0;
+    top : 0;
+    width : 100%; /* Pleine longueur */
+    height : 100%; /* Pleine hauteur */
+    overflow : auto; /* Permet le scroll si besoin */
+    background-color : rgba(0,0,0,0.4); /* Noir et transparent */
 }
   
 /* Contenu de la PopUp */
 #contenuPopUpGameOver 
 {
-    background-color: #fefefe;
-    margin: 20% auto; /* 20% en haut et centré */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 80%; /* longueur :  */
-    text-align: center;
+    background-color : #fefefe;
+    margin : 20% auto; /* 20% en haut et centré */
+    padding : 20px;
+    border : 1px solid #888;
+    width : 80%; /* longueur :  */
+    text-align : center;
 }
   
 /* boutton pour fermer la PopUp */
 #fermerPopUp 
 {
-    color: #aaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+    color : #aaa;
+    float : right;
+    font-size : 28px;
+    font-weight : bold;
 }
   
 #fermerPopUp:hover,
 #fermerPopUp:focus 
 {
-    color: black;
-    text-decoration: none;
-    cursor: pointer;
+    color : black;
+    text-decoration : none;
+    cursor : pointer;
 }

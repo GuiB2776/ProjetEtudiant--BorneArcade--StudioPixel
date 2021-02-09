@@ -16,9 +16,6 @@ var canvasContext ;
 var score = 0;
 var nbVies = 3;
 
-
-
-/* définition du labyrinthe dans un tableau contenant un tableau par ligne */
 var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '5', '3','13', '1', '3', '9', '5', '5', '5', '5', '5', '3'],              // 1
 			['10',"13", "5", "1", "5", "7",'10', "8", "6",' 9',' 6',' 9',' 1', '3','12', '3','12', '2','10','13', '5', '5', '5' ,'7','10'],              // 2
 			[ '8', '5', '7','10','13', '5', '2','10', '9', '6', '9', '0', '0', '0', '3','12', '3','10', '8', '5', '5', '5', '5', '5', '2'],              // 3
@@ -34,9 +31,8 @@ var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '
 			[ '8', '5', '5', '5', '5', '5', '2','11','10','11','10','13',' 0',' 7','10','11','10','11', '8',' 5',' 7','10','13',' 5', '2'],              // 13
 			['10','13', '5', '5',' 5', '7','10','14','10','14','12',' 3','14', '9',' 6','14','10','14','10','13',' 5',' 4',' 5', '7','10'],              // 14
 			['12', '5', '5', '5', '5',' 5',' 4',' 5',' 4', '7','15','12',' 5',' 6','15','13',' 4',' 5',' 4',' 5',' 5',' 5', '5',' 5',' 6'],				 // 15
-		   ];
+		];
 		//	  01   02   03   04   05   06   07   08   09   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25 
-
 
 
 var level = 0;
@@ -45,9 +41,8 @@ var definitionLevel=[
 					];	
 
 
-
 var imageMur;	// défintion variable pour y mettre les assets des murs
-function start() //chargement des assets des murs dans un tableau grâce à la fonction loadImage()
+function startLoading() //chargement des assets des murs dans un tableau grâce à la fonction loadImage()
 {
     imageMur=loadImage([	"assets/img/mur0.png",
 							"assets/img/mur1.png",
@@ -85,12 +80,12 @@ function endLoadPacman()  // chargement des Ghosts, dans un tableau
 								"assets/img/virusRouge.png",
 								"assets/img/virusOrange.png",
 								"assets/img/virusBleu.png",
-								"assets/img/virusViolet.png"], endLoadGost);	// appel de la fonction endLoadGhost qui définie le canvas
+								"assets/img/virusViolet.png"], initialisation);	// appel de la fonction endLoadGhost qui définie le canvas
 }
 
 
 const NbrGHOST = 4;
-function endLoadGost() 		// fonction de chargement du canvas >>> ses paramètres
+function initialisation() 		// fonction de chargement du canvas >>> ses paramètres
 { 
 	
     document.getElementById("presentation").style.display="none";		// presentation cachée
@@ -98,12 +93,13 @@ function endLoadGost() 		// fonction de chargement du canvas >>> ses paramètres
 	document.getElementById("saisieHiscore").style.display="none";		// saisieHighscore cachée
 
 	var canvas = document.getElementById("canvas");								// définition d'une variable canvas = elementHTML avec l'id "canvas"
-	canvas.width = canvasWidth;													//Taille du canvas en hauteur
-	canvas.height = canvasHeight;												//taille du canvas en largeur
+	canvas.width = canvasWidth;													// Taille du canvas en hauteur
+	canvas.height = canvasHeight;												// taille du canvas en largeur
 	canvasContext = canvas.getContext("2d");									// contexte du canvas en 2D
 	document.getElementById("canvas").style.display="";							// affichage du canvas avec l'attribut display:""; / display:"none";
 
-	document.getElementById("message").innerHTML="test message";				// affichage message en haut à droite
+	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;				// affichage message en haut à droite
+	document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
 	
 	pacman.init(definitionLevel[level]);										//initialisation du pac man dans le niveau selectioner
 	gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
@@ -125,7 +121,7 @@ var nbPillule = 0;
 function loopMain() 	// définition de la boucle principale
 {  
 	canvasContext.fillStyle = "#ffffff";
-	canvasContext.fillRect(0, 0, 1920, 1080);
+	canvasContext.fillRect(0, 0, 1600, 880);
 	
 	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
 	pacman.update(definitionLevel[level]);							// mise à jour du pacman
@@ -136,10 +132,15 @@ function loopMain() 	// définition de la boucle principale
 	gost4.update(definitionLevel[level]);
 
 	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
+	document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
 	
 	if( !nbPillule )  
-	{											// s'il n'y a plus de pièces, on relance le niveau
+	{																				// s'il n'y a plus de pièces, on relance le niveau
 		pacman.init(definitionLevel[level]);
+		gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
+		gost2.init(definitionLevel[level]);	
+		gost3.init(definitionLevel[level]);	
+		gost4.init(definitionLevel[level]);	
 		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY); // recréation des pièces
 	}
 
@@ -151,6 +152,7 @@ function loopMain() 	// définition de la boucle principale
 		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);
 
 		document.getElementById("message").innerHTML= "Score :" + score + " // " + " Points restant :" + nbPillule;
+		document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
 
 	}
 
@@ -186,7 +188,7 @@ var pacman=					// définition de pacman
 		this.delaiDemande=-30;
 	},
 	
-	update(paramLevel) 		// mise à jour des paramètres de direction 
+	update(paramLevel) 		// mise à jour du jeu (rafraichissement) && paramètres de direction 
 	{			
 
 		if(this.delaiDemande>=0) 
@@ -232,6 +234,7 @@ var pacman=					// définition de pacman
 			}
 		}
 
+		// Gestion du délai d'appui d'une touche pour le déplacement
 		if(this.delaiDemande>0)
 		{
 			this.delaiDemande--;
@@ -257,16 +260,14 @@ var pacman=					// définition de pacman
 			 break;
 		}
 
-		// symétrie de l'image selon l'axe de déplacement (perso tourné à droite-gauche , haut-bas)
+		// symétrie de l'image selon l'axe de déplacement (perso tourné à droite-gauche )
 		canvasContext.save();						
 		if(this.derniereDirection&8) 
 		{
 			canvasContext.scale(-1,1);
 			canvasContext.translate((-this.x*2)-tailleCelluleLaby,0);
 		} 
-
 		/* 
-
 		//Affichage perso tourné vers le haut ou le bas
 		else if(this.derniereDirection&4) 
 		{
@@ -278,7 +279,6 @@ var pacman=					// définition de pacman
 			canvasContext.translate(-this.y+this.x,this.x+this.y+tailleCelluleLaby);
 			canvasContext.rotate(-Math.PI/2);
 		}
-
 		*/
 
 
@@ -387,7 +387,7 @@ function drawLaby(laby)							// création du labyrinthe avec une double boucle 
 
 
 
-//// ---- mise en place des pièces à ramasser ---- ////
+//// ---- création && mise en place des pièces à ramasser ---- ////
 function createPillules(laby,x,y) 									// création des pièces dans le labyrinthe
 {
 	// laby[y][x]|=1<<7;   // bonus
