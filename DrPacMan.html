@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="assets/img/DrPacman.png">
+    <title> PacMan V3 - Studio Pixel</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href ="style.css">
+    <script src="main.js"> </script>
+    <script src="Utils.js"> </script>
+    <script src="chrono.js"> </script>
+  </head>
+
+  <body onload="startLoading(); chronoStart();">      <!-- appel de la fonction "start()" au chargement du <body>, pour démarrer le chargement des éléments -->
+
+    <!-- MUSIQUE -->
+    <audio src="assets/sound/DrPacManSound.mp3" type="audio/mpeg" autoplay loop> </audio>
+
+    <header id="HUD">
+      <div class="elementHUD"> 
+        <img id="vie1" src="assets/img/DrPacman.png"> </img>
+        <img id="vie2" src="assets/img/DrPacman.png"> </img>
+        <img id="vie3" src="assets/img/DrPacman.png"> </img>
+      </div>
+      <div class="elementHUD">
+        <img id="logoJeu" href="assetsMenuPrincipal/logo_jeu_white.png">
+      </div>
+      <div class="elementHUD">  
+        <p id="score"> score </p> 
+      </div>
+      <div class="elementHUD">  
+        <p id="highScore"> highScore </p> 
+      </div>
+      <div class="elementHUD"> 
+        <p id="chronotime"> 00:00:000 </p>
+      </div>
+
+    </header>
+
+    <!-- Page de présentation -->
+    <div id="presentation" style ="display:none">
+      <p> Pacman NWS </p>
+    </div>
+
+    <div id="message"  style="position:fixed;left:1024px;top:0px;"> affichage des messages </div>
+
+    <!-- Div du canvas de jeu -->
+    <div id="jeu" style="display:none">
+      <p> Page du jeu </p>
+      <canvas id="canvas" style="display:none"> </canvas>
+    </div>
+
+    <!-- Page des scores -->
+    <div id="saisieHiscore" style="display:none">
+      <p> Page des scores </p>
+    </div>
+
+    <!-- Popup GameOver -->
+    <div id="popupGameOver" class="popup">
+      <!-- Contenu de la Popup -->
+      <div id="contenuPopUpGameOver">
+        <span id="fermerPopUp" onClick="document.location.reload(true)"> &times; </span>
+        <p> <strong> Game Over </strong> </p>
+        <p> Vous avez perdu... </p>
+        <p> Le meilleur score est de : <span id="popupHigherScore"> 00000 </span> </p>
+        <p> Votre score est de : <span id="popupScore"> 00000 </span> </p>
+        <p> En <span id="chronotime2"> 00:00:000 </span> de temps </p>
+        <div id="BoutonsGameOver"> 
+          <input type="button" value="Recommencer" onClick="document.location.reload(true)">
+          <a href="index.html"> <input type="button" value="Menu Principal"> </a>
+        </div>
+      </div>      
+    </div>
+    
+  </body>
+
+</html>

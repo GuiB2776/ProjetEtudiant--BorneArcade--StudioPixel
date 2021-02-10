@@ -1,3 +1,8 @@
+<input type="button" value="Recommencer" onClick="document.location.reload(true)"></input>
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
 if(paramLevel.labyrinthe[yPillule][xPillule]&(1<<4))
 {
 	paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(1<<4);
@@ -16,9 +21,7 @@ if(this.direction&5)
 	score++;
 }
 
-
-
-		document.getElementById("message").innerHTML = score + " / " + nbPillule;
+document.getElementById("message").innerHTML = score + " / " + nbPillule;
 
 
 // ------------------------------------------------------------------------------------------- //
