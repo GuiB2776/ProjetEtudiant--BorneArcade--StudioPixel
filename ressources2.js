@@ -1,4 +1,28 @@
-<input type="button" value="Recommencer" onClick="document.location.reload(true)"></input>
+
+function checkHigherScore()
+{
+	var higherScore = localStorage.higherScore ;
+
+	var actualScore = localStorage.score ;
+
+	if( actualScore > higherScore )
+	{
+		var newHigherScore = actualScore ;
+		higherScore = newHigherScore ;
+	}
+	else
+	{
+
+	}
+}
+higherScore();
+var higherScore = null ;
+var newHigherScore = actualScore ;
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
+<input type="button" value="Recommencer" onClick="document.location.reload(true)"> </input>
 
 //-----------------------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------------------//

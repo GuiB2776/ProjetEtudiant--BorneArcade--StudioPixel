@@ -20,13 +20,14 @@
     <audio src="assets/sound/DrPacManSound.mp3" type="audio/mpeg" autoplay loop> </audio>
 
     <header id="HUD">
+
       <div class="elementHUD"> 
         <img id="vie1" src="assets/img/DrPacman.png"> </img>
         <img id="vie2" src="assets/img/DrPacman.png"> </img>
         <img id="vie3" src="assets/img/DrPacman.png"> </img>
       </div>
-      <div class="elementHUD">
-        <img id="logoJeu" href="assetsMenuPrincipal/logo_jeu_white.png">
+      <div class="elementHUD"> 
+        <p id="pointsLeft"> pointsLeft </p> 
       </div>
       <div class="elementHUD"> 
         <p id="score"> score </p> 
@@ -37,25 +38,15 @@
       <div class="elementHUD"> 
         <p id="chronotime"> 00:00:000 </p>
       </div>
+      <div class="elementHUD">
+        <a href="index.html" > <img id="boutonMenuPrincipal" src="assets/img/bouton_menu.jpg"> </a>
+      </div>
 
     </header>
 
-    <!-- Page de présentation -->
-    <div id="presentation" style ="display:none">
-      <p> Pacman NWS </p>
-    </div>
-
-    <div id="message"  style="position:fixed;left:1024px;top:0px;"> affichage des messages </div>
-
     <!-- Div du canvas de jeu -->
     <div id="jeu" style="display:none">
-      <p> Page du jeu </p>
       <canvas id="canvas" style="display:none"> </canvas>
-    </div>
-
-    <!-- Page des scores -->
-    <div id="saisieHiscore" style="display:none">
-      <p> Page des scores </p>
     </div>
 
     <!-- Popup GameOver -->

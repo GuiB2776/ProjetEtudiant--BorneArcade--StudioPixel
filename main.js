@@ -13,8 +13,11 @@ const canvasWidth = largeurLaby * tailleCelluleLaby ;
 const canvasHeight = hauteurLaby * tailleCelluleLaby ;
 var canvasContext ;
 
-var score = 0;
+var score = 0 ;
+
 var nbVies = 3;
+
+var totalPilules = nbPillule ;
 
 var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '5', '3','13', '1', '3', '9', '5', '5', '5', '5', '5', '3'],              // 1
 			['10',"13", "5", "1", "5", "7",'10', "8", "6",' 9',' 6',' 9',' 1', '3','12', '3','12', '2','10','13', '5', '5', '5' ,'7','10'],              // 2
@@ -88,9 +91,7 @@ const NbrGHOST = 4;
 function initialisation() 		// fonction de chargement du canvas >>> ses paramètres
 { 
 	
-    document.getElementById("presentation").style.display="none";		// presentation cachée
 	document.getElementById("jeu").style.display="";					//sélection de l'ID HTML "jeu"
-	document.getElementById("saisieHiscore").style.display="none";		// saisieHighscore cachée
 
 	var canvas = document.getElementById("canvas");								// définition d'une variable canvas = elementHTML avec l'id "canvas"
 	canvas.width = canvasWidth;													// Taille du canvas en hauteur
@@ -98,9 +99,10 @@ function initialisation() 		// fonction de chargement du canvas >>> ses paramèt
 	canvasContext = canvas.getContext("2d");									// contexte du canvas en 2D
 	document.getElementById("canvas").style.display="";							// affichage du canvas avec l'attribut display:""; / display:"none";
 
-	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;				// affichage message en haut à droite
-	document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
-	
+	var totalPilules = nbPillule ;
+	document.getElementById("score").innerHTML= "Score : " + score ;
+	document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
+
 	pacman.init(definitionLevel[level]);										//initialisation du pac man dans le niveau selectioner
 	gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
 	gost2.init(definitionLevel[level]);	
@@ -114,14 +116,21 @@ function initialisation() 		// fonction de chargement du canvas >>> ses paramèt
 	loopMain(); // appel de la fonction loopmain
 }
 
-
-
 var nbPillule = 0;
 //// ---- Boucle principale ---- ////
 function loopMain() 	// définition de la boucle principale
 {  
 	canvasContext.fillStyle = "#ffffff";
-	canvasContext.fillRect(0, 0, 1600, 880);
+	canvasContext.fillRect(0, 0, 1250, 750);
+
+	var background = new Image();
+	background.src = "assets/img/backgroundLabyrinthe.png";
+
+	// bbackground du labyrinthe
+	background.onload = function()
+	{
+		canvasContext.drawImage(background,0,0, 1249, 751);   
+	}
 	
 	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
 	pacman.update(definitionLevel[level]);							// mise à jour du pacman
@@ -131,8 +140,9 @@ function loopMain() 	// définition de la boucle principale
 	gost3.update(definitionLevel[level]);
 	gost4.update(definitionLevel[level]);
 
-	document.getElementById("message").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
-	document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
+	// document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
+	document.getElementById("score").innerHTML= "Score : " + score ;
+	document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 	
 	if( !nbPillule )  
 	{																				// s'il n'y a plus de pièces, on relance le niveau
@@ -147,13 +157,16 @@ function loopMain() 	// définition de la boucle principale
 	if( pacman.mort == true )
 	{
 		popUpGameOver();
-		pacman.mort = false;
+
 		pacman.init(definitionLevel[level].labyrinthe,definitionLevel[level]);
-		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);
+		gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
+		gost2.init(definitionLevel[level]);	
+		gost3.init(definitionLevel[level]);	
+		gost4.init(definitionLevel[level]);	
+		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY); // recréation des pièces
 
-		document.getElementById("message").innerHTML= "Score :" + score + " // " + " Points restant :" + nbPillule;
-		document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
-
+		document.getElementById("score").innerHTML= "Score : " + score ;
+		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 	}
 
 	setTimeout(loopMain, 1000/60);	// délais de chargement de 1000 millisecondes / 60
@@ -177,7 +190,7 @@ var pacman=					// définition de pacman
 	vAnim:0,
 	noAnim:0,
 
-	mort: false,
+	mort : false,
 
 	
 	init(paramLevel) 		// initialisation des paramètres du niveau pour son affichage >>> 
@@ -331,8 +344,8 @@ var pacman=					// définition de pacman
 			paramLevel.labyrinthe[yPillule][xPillule]&=0xffff-(4<<4);
 			score++;
 		}
-
-		document.getElementById("message").innerHTML = score + " / " + nbPillule ;
+		document.getElementById("score").innerHTML= "Score : " + score ;
+		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 	},
 	
 };
