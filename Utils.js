@@ -120,8 +120,9 @@ function popUpGameOver()
     if( pacman.mort == true )
 	{
         gameOver();
-        document.getElementById("popupScore").innerHTML = score;
-        document.getElementById("chronotime").innerHTML = min + ":" + sec + ":" + msec ;
+        document.getElementById("popupScore").innerHTML = score ;
+		document.getElementById("chronotime2").innerHTML = min + ":" + sec + ":" + msec ;
+		document.getElementById("popupHigherScore").innerHTML= "Meilleur Score : " + higherScore ;
     }
     
     // Refermer la Popup

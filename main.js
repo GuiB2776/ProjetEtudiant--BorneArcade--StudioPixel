@@ -1,19 +1,43 @@
 //// PACMAN ////
 
 /* définition des constantes */
-const largeurLaby = 25;
-const hauteurLaby = 15;
-const tailleCelluleLaby = 50;
+const largeurLaby = 25 ;
+const hauteurLaby = 15 ;
+const tailleCelluleLaby = 50 ; 
 
 // const taillePacman = tailleCelluleLaby * 0.7 ; 	
-const taillePacman = 25;
-const distanceCollision = ((taillePacman**2) + (taillePacman**2));
+const taillePacman = 25 ;
+const distanceCollision = ((taillePacman**2) + (taillePacman**2)) ;
 
 const canvasWidth = largeurLaby * tailleCelluleLaby ;
 const canvasHeight = hauteurLaby * tailleCelluleLaby ;
 var canvasContext ;
 
 var score = 0 ;
+
+var higherScore = localStorage.getItem("oldHigherScore") ;
+
+function checkHigherScore()
+{
+	if ( localStorage.getItem("oldHigherScore") === null )
+	{
+		higherScore = score ;
+		localStorage.setItem("oldHigherScore", higherScore );
+	}
+	else
+	{
+		if ( score > higherScore )
+		{
+			higherScore = score ;
+			localStorage.setItem("oldHigherScore", higherScore );
+		}
+		else
+		{
+			higherScore = higherScore ;
+		}
+	}
+}
+
 
 var nbVies = 3;
 
@@ -123,14 +147,14 @@ function loopMain() 	// définition de la boucle principale
 	canvasContext.fillStyle = "#ffffff";
 	canvasContext.fillRect(0, 0, 1250, 750);
 
-	var background = new Image();
-	background.src = "assets/img/backgroundLabyrinthe.png";
+	//var background = new Image();
+	//background.src = "assets/img/backgroundLabyrinthe.png";
 
-	// bbackground du labyrinthe
-	background.onload = function()
-	{
-		canvasContext.drawImage(background,0,0, 1249, 751);   
-	}
+	// background du labyrinthe
+	//background.onload = function()
+	//{
+	//	canvasContext.drawImage(background,0,0, 1249, 751);   
+	//}
 	
 	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
 	pacman.update(definitionLevel[level]);							// mise à jour du pacman
@@ -143,6 +167,8 @@ function loopMain() 	// définition de la boucle principale
 	// document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
 	document.getElementById("score").innerHTML= "Score : " + score ;
 	document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
+	checkHigherScore();
+	document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
 	
 	if( !nbPillule )  
 	{																				// s'il n'y a plus de pièces, on relance le niveau
@@ -167,6 +193,8 @@ function loopMain() 	// définition de la boucle principale
 
 		document.getElementById("score").innerHTML= "Score : " + score ;
 		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
+		checkHigherScore();
+		document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
 	}
 
 	setTimeout(loopMain, 1000/60);	// délais de chargement de 1000 millisecondes / 60
@@ -346,6 +374,8 @@ var pacman=					// définition de pacman
 		}
 		document.getElementById("score").innerHTML= "Score : " + score ;
 		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
+		checkHigherScore();
+		document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
 	},
 	
 };
