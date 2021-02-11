@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Tableau des Scores : Dr.PacMan </title>
+        <link href="style.css" rel="stylesheet" type="text/css">
+        <script src="main.js"> </script>
+        <script src="Utils.js"> </script>
+
+    </head>
+
+    <body onload="afficherClassementHighScores();">
+        
+        <main id="Tableau_Des_Scores">
+
+            <!-- Background & logo du jeu-->
+            <div>
+                <svg class="coverBackground">
+                    <rect id="backgroundCover" rx="0" ry="0" x="0" y="0" width="1920" height="1080">
+                    </rect>
+                </svg>
+                <img id="Bg_menu_tds" src="assetsMenus/Bg_tableau_des_scores.png">
+                <img id="logo_jeu_tds" src="assetsMenus/logo_jeu_white.png">
+            </div>
+            
+            <!-- Bouton de retour au menu prinicpal-->
+            <div>
+                <a href="index.html"> <img id="bouton_menu" src="assetsMenus/bouton_menu.jpg"> </a>
+            </div>
+
+           <!-- Tableau des scores -->
+            <section>
+                <div id="titreHigherScores">
+                    <h3> Higher Scores : </h3>
+                </div>
+                <div id="Classement">
+                    <!-- Meilleur score-->
+                    <div>
+                        <span class="gold_element"> 1 </span> 
+                        <span class="gold_element" style="vertical-align:super;"> st </span> 
+                        <span class="gold_element" > . </span>
+                        <span class="white_element" id="highScore1"> 1000 </span> 
+                        <span class="white_element"> pts </span>
+                        <br>
+                    </div>
+
+                    <!-- 2ème meilleur score -->
+                    <div>
+                        <span class="silver_element"> 2 </span> 
+                        <span class="silver_element" style="vertical-align:super;"> nd </span>
+                        <span class="silver_element"> . </span>
+                        <span class="white_element" id="highScore2" > 950 </span> 
+                        <span class="white_element"> pts </span>
+                        <br> 
+                    </div>
+                    
+
+                    <!-- 3ème meilleur score -->
+                    <div>
+                        <span class="bronze_element"> 3 </span>
+                        <span class="bronze_element" style="vertical-align:super;"> rd </span>
+                        <span class="bronze_element"> . </span>
+                        <span class="white_element" id="highScore3"> 840 </span>
+                        <span class="white_element"> pts </span>
+                        <br> 
+                    </div>
+
+                    <!-- 4ème meilleur score -->
+                    <div>
+                        <span class="white_element"> 4 </span> 
+                        <span class="white_element" style="vertical-align:super;"> th </span>
+                        <span class="white_element"> . </span>
+                        <span class="white_element" id="highScore4"> 700 </span> 
+                        <span class="white_element"> pts </span>
+                        <br>
+                    </div>
+
+                    <!-- 5ème meilleur score-->
+                    <div>
+                        <span class="white_element"> 5 </span> 
+                        <span class="white_element" style="vertical-align:super;"> th </span> 
+                        <span class="white_element"> . </span>
+                        <span class="white_element" id="highScore5"> 600 </span>
+                        <span class="white_element"> pts </span>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+        
+    </body>
+
+</html>

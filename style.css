@@ -13,16 +13,19 @@
 		2.5 	Transition & tranform des boutons = l.147
 
 	3. Jeu & assets = l.165
-		3.1
-		3.2
-		3.3
-		3.4
-		3.5
+		3.1 	HUD = l.179
+		3.2 	JEU = l.211
 
-	4. GameOver = l.233
-		4.1 Popup Game Over (background) = l.
-		4.2 Contenu de la PopUp = l.
-		4.3 Boutton pour fermer la PopUp = l.
+	4. GameOver = l.238
+		4.1 	Popup Game Over (background) = l.242
+		4.2 	Contenu de la PopUp = l.260
+		4.3 	Boutton pour fermer la PopUp = l.273
+	
+	5. Tableau des Scores = l.298
+		5.1		Général = l.302
+		5.2 	Background & Cover = l.312
+		5.3		Menu & Logo = l.339
+		5.4 	Affichage des Scores = l.363
 /*
 
 /*----------------*//*----------------*//*----------------*//*----------------*/
@@ -52,7 +55,7 @@ html,body
 /*--------------------------*/
 
 /*----------------*//*----------------*/
-	/* 2.1 Images */
+/* 2.1 Images */
 
 #pageAccueil {
 	position: absolute;
@@ -87,7 +90,7 @@ html,body
 }
 
 /*----------------*//*----------------*/
-	/* 2.2 Bouton : JOUER */
+/* 2.2 Bouton : JOUER */
 
 #Bouton_1 {
 	fill: rgba(0,165,165,1);
@@ -115,7 +118,7 @@ html,body
 }
 
 /*----------------*//*----------------*/
-	/* 2.3 Bouton : Tableaux des scores */
+/* 2.3 Bouton : Tableaux des scores */
 
 #Bouton_2 {
 	fill: rgba(233,74,52,1);
@@ -143,7 +146,7 @@ html,body
 }
 
 /*----------------*//*----------------*/
-	/* 2.4 couleurs des textes des liens */
+/* 2.4 couleurs des textes des liens */
 
 #divBoutonJOUER a, #divBoutonSCORES a
 {
@@ -152,7 +155,7 @@ html,body
 }
 
 /*----------------*//*----------------*/
-	/* 2.5 transition & tranform des boutons */
+/* 2.5 transition & tranform des boutons */
 
 .Bouton1:hover , .Bouton2:hover 
 {
@@ -173,7 +176,7 @@ html,body
 /*------------------------*/
 
 /*----------------*//*----------------*/
-	/* 3.1 HUD */
+/* 3.1 HUD */
 
 #HUD
 {
@@ -205,7 +208,7 @@ html,body
 }
 
 /*----------------*//*----------------*/
-	/* 3.2 JEU */
+/* 3.2 JEU */
 
 #canvas
 {
@@ -236,6 +239,7 @@ html,body
 /*--- 4. GameOver ---*/
 /*-------------------*/
 
+/*----------------*//*----------------*/
 /* 4.1 Popup Game Over (background) */
 #popupGameOver 
 {
@@ -252,7 +256,8 @@ html,body
 	transform: scale(2);
 	margin: auto auto;
 }
-  
+
+/*----------------*//*----------------*/  
 /* 4.2 Contenu de la PopUp */
 #contenuPopUpGameOver 
 {
@@ -264,7 +269,8 @@ html,body
 	text-align : center;
 	border: 0.1em dotted black;
 }
-  
+
+/*----------------*//*----------------*/  
 /* 4.3 boutton pour fermer la PopUp */
 #fermerPopUp 
 {
@@ -284,4 +290,120 @@ html,body
 #BoutonsGameOver
 {
 	transform: scale(1.5);
+}
+
+/*----------------*//*----------------*//*----------------*//*----------------*/
+/*----------------*//*----------------*//*----------------*//*----------------*/
+
+/*-----------------------------*/
+/*--- 5. Tableau des Scores ---*/
+/*-----------------------------*/
+
+/*----------------*//*----------------*/  
+/* 5.1 Général */
+#Tableau_Des_Scores
+{
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	overflow: hidden;
+}
+
+/*----------------*//*----------------*/  
+/* 5.2 Background & Cover */
+#backgroundCover 
+{
+	fill: rgba(16,16,16,1);
+}
+.coverBackground 
+{
+	position: absolute;
+	overflow: visible;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+}
+#Bg_menu_tds
+{
+	opacity: 0.9;
+	position: absolute;
+	width: 1920px;
+	height: 1080px;
+	left: 0px;
+	top: 0px;
+	overflow: visible;
+	transform: rotate(180deg);
+}
+
+/*----------------*//*----------------*/  
+/* 5.3 Menu & Logo */
+#bouton_menu
+{
+	position: absolute;
+	width: 245.631px;
+	height: 100px;
+	left: 100px;
+	top: 50px;
+	overflow: visible;
+}
+
+#logo_jeu_tds
+{
+	position: absolute;
+	width: 390px;
+	height: 390px;
+	left: 1522px;
+	top: -97px;
+	overflow: visible;
+}
+
+/*----------------*//*----------------*/  
+/* 5.4 Affichage des Scores */
+#titreHigherScores 
+{
+	left: 730px;
+	top: 30px;
+	position: absolute;
+	overflow: visible;
+	width: auto;
+	text-align: center;
+	font-size: 60px;
+	color: rgba(255,255,255,1);
+}
+#Classement
+{
+	left: 665px;
+	top: 330px;
+	position: absolute;
+	overflow: visible;
+	width: 600px;
+	line-height: 110px;
+	margin-top: -25px;
+	text-align: center;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 80px;
+	color:rgba(255,255,255,1);
+}
+.white_element
+{
+	color:rgba(255,255,255,1);
+}
+.gold_element
+{
+	color: rgb(239, 232, 16);
+}
+.silver_element
+{
+	color:rgba(200,200,200,1);
+}
+.bronze_element
+{
+	color:rgba(164,88,55,1);
+}
+
+#Tableau_Des_Scores br
+{
+	padding : 0;
 }

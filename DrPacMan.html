@@ -2,25 +2,32 @@
 <html lang="fr">
 
   <head>
+    <!-- meta-données -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- favicon -->
     <link rel="icon" type="image/png" href="assets/img/DrPacman.png">
+    <!-- titre -->
     <title> PacMan V3 - Studio Pixel</title>
+    <!-- css et font  -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <link rel="stylesheet" href ="style.css">
+    <!-- scripts -->  
     <script src="main.js"> </script>
     <script src="Utils.js"> </script>
     <script src="chrono.js"> </script>
+
   </head>
+
 
   <body onload="startLoading(); chronoStart();">      <!-- appel de la fonction "start()" au chargement du <body>, pour démarrer le chargement des éléments -->
 
     <!-- MUSIQUE -->
     <audio src="assets/sound/DrPacManSound.mp3" type="audio/mpeg" autoplay loop> </audio>
 
+    <!-- HUD en header -->
     <header id="HUD">
-
       <div class="elementHUD"> 
         <img id="vie1" src="assets/img/DrPacman.png"> </img>
         <img id="vie2" src="assets/img/DrPacman.png"> </img>
@@ -41,7 +48,6 @@
       <div class="elementHUD">
         <a href="index.html" > <img id="boutonMenuPrincipal" src="assets/img/bouton_menu.jpg"> </a>
       </div>
-
     </header>
 
     <!-- Div du canvas de jeu -->

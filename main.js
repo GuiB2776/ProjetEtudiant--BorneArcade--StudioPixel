@@ -13,11 +13,16 @@ const canvasWidth = largeurLaby * tailleCelluleLaby ;
 const canvasHeight = hauteurLaby * tailleCelluleLaby ;
 var canvasContext ;
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
+// --- // Gestion des scores // --- //
+
 var score = 0 ;
 
 var higherScore = localStorage.getItem("oldHigherScore") ;
 
-function checkHigherScore()
+function checkHigherScore()											// Fonction de gestion du HigherScore
 {
 	if ( localStorage.getItem("oldHigherScore") === null )
 	{
@@ -38,6 +43,55 @@ function checkHigherScore()
 	}
 }
 
+var newHigherScore = score ;
+
+var highScore1 = localStorage.getItem("highScore1") ;
+var highScore2 = localStorage.getItem("highScore2") ;
+var highScore3 = localStorage.getItem("highScore3") ;
+var highScore4 = localStorage.getItem("highScore4") ;
+var highScore5 = localStorage.getItem("highScore5") ;
+
+function tableauDesScores()											// Fonction de gestion du Tableau des Scores
+{
+	if( newHigherScore > highScore1)
+	{
+		highScore1 = newHigherScore ;
+		localStorage.setItem("highScore1", highScore1) ;
+	}
+	else if( newHigherScore > highScore2)
+	{
+		highScore2 = newHigherScore ;
+		localStorage.setItem("highScore2", highScore2) ;
+	}
+	else if( newHigherScore > highScore3)
+	{
+		highScore3 = newHigherScore ;
+		localStorage.setItem("highScore3", highScore3) ;
+	}
+	else if( newHigherScore > highScore4)
+	{
+		highScore4 = newHigherScore ;
+		localStorage.setItem("highScore4", highScore4) ;
+	}
+	else if( newHigherScore > highScore5)
+	{
+		highScore5 = newHigherScore ;
+		localStorage.setItem("highScore5", highScore5) ;
+	}
+
+	function afficherClassementHighScores()							// Fonction d'affichage sur la page Tableau des Scores
+	{
+		document.getElementById("highScore1").innerHTML=  localStorage.getItem("olgHigherScore") ;
+		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore2") ;
+		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore3") ;
+		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore4") ;
+		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore5") ;
+	}
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 var nbVies = 3;
 
@@ -110,12 +164,15 @@ function endLoadPacman()  // chargement des Ghosts, dans un tableau
 								"assets/img/virusViolet.png"], initialisation);	// appel de la fonction endLoadGhost qui définie le canvas
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
-const NbrGHOST = 4;
+// const NbrGHOST = 4;
+
 function initialisation() 		// fonction de chargement du canvas >>> ses paramètres
 { 
 	
-	document.getElementById("jeu").style.display="";					//sélection de l'ID HTML "jeu"
+	document.getElementById("jeu").style.display="";							//sélection de l'ID HTML "jeu"
 
 	var canvas = document.getElementById("canvas");								// définition d'une variable canvas = elementHTML avec l'id "canvas"
 	canvas.width = canvasWidth;													// Taille du canvas en hauteur
@@ -123,7 +180,6 @@ function initialisation() 		// fonction de chargement du canvas >>> ses paramèt
 	canvasContext = canvas.getContext("2d");									// contexte du canvas en 2D
 	document.getElementById("canvas").style.display="";							// affichage du canvas avec l'attribut display:""; / display:"none";
 
-	var totalPilules = nbPillule ;
 	document.getElementById("score").innerHTML= "Score : " + score ;
 	document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 
@@ -141,20 +197,12 @@ function initialisation() 		// fonction de chargement du canvas >>> ses paramèt
 }
 
 var nbPillule = 0;
+
 //// ---- Boucle principale ---- ////
 function loopMain() 	// définition de la boucle principale
 {  
 	canvasContext.fillStyle = "#ffffff";
 	canvasContext.fillRect(0, 0, 1250, 750);
-
-	//var background = new Image();
-	//background.src = "assets/img/backgroundLabyrinthe.png";
-
-	// background du labyrinthe
-	//background.onload = function()
-	//{
-	//	canvasContext.drawImage(background,0,0, 1249, 751);   
-	//}
 	
 	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
 	pacman.update(definitionLevel[level]);							// mise à jour du pacman
@@ -195,12 +243,15 @@ function loopMain() 	// définition de la boucle principale
 		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 		checkHigherScore();
 		document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
+		tableauDesScores();
 	}
 
 	setTimeout(loopMain, 1000/60);	// délais de chargement de 1000 millisecondes / 60
 
 }
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 //// ---- PACMAN ---- ////
 const delaiDemandeMax=20;	// constante du délais des commandes directionnelle // permet de mettre un délai pour tourner ( 20 frames )
@@ -376,10 +427,13 @@ var pacman=					// définition de pacman
 		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 		checkHigherScore();
 		document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
+		tableauDesScores();
 	},
 	
 };
 
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 //// ---- DESSIN Labyrinthe ---- ////
 function drawLaby(laby)							// création du labyrinthe avec une double boucle for
@@ -444,15 +498,15 @@ function createPillules(laby,x,y) 									// création des pièces dans le laby
 }
 
 
-//// ---- FANTÔMES ---- ////
+///////////////////////////////////////////////////////////////////////////////////////////
+// --- // virus 1 // --- //
 
-var gost =		 // paramètres et mise en place du/des fantomes
+var gost =		 								// paramètres et mise en place du virus 1
 {   
-	
 	x:0,
 	y:0,
-	direction:4,		//choix de la direction du fantôme
-	vitesse:2,			//choix de la vitesse du fantôme
+	direction:4,								//choix de la direction du fantôme
+	vitesse:2,									//choix de la vitesse du fantôme
 	
 	init(paramLevel) 
 	{
@@ -511,16 +565,16 @@ var gost =		 // paramètres et mise en place du/des fantomes
 }; 
 
 
-
-var gost2 =		 // paramètres et mise en place du fantôme 2
+///////////////////////////////////////////////////////////////////////////////////////////
+// --- // virus 2 // --- //
+var gost2 =		 								// paramètres et mise en place du virus 2
 {   
-	
 	x:0,
 	y:0,
-	direction:4,		//choix de la direction du fantôme
-	vitesse:2,			//choix de la vitesse du fantôme
+	direction:4,								//choix de la direction du fantôme
+	vitesse:2,									//choix de la vitesse du fantôme
 	
-	init(paramLevel) 
+	init(paramLevel) 							// initialisation du virus
 	{
 		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
 		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
@@ -587,17 +641,16 @@ var gost2 =		 // paramètres et mise en place du fantôme 2
 	},
 }; 
 
-
-
-var gost3 =		 // paramètres et mise en place du fantôme 2
+///////////////////////////////////////////////////////////////////////////////////////////
+// --- // virus 3 // --- //
+var gost3 =		 								// paramètres et mise en place du virus 4
 {   
-	
 	x:0,
 	y:0,
-	direction:4,		//choix de la direction du fantôme
-	vitesse:2,			//choix de la vitesse du fantôme
+	direction:4,								//choix de la direction du fantôme
+	vitesse:2,									//choix de la vitesse du fantôme
 	
-	init(paramLevel) 
+	init(paramLevel) 							// initialisation du virus
 	{
 		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
 		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
@@ -664,17 +717,17 @@ var gost3 =		 // paramètres et mise en place du fantôme 2
 	},
 }; 
 
+///////////////////////////////////////////////////////////////////////////////////////////
 
-
-var gost4=		 // paramètres et mise en place du fantôme 2
+// --- // virus 4 // --- //
+var gost4=										// paramètres et mise en place du virus 4
 {   
-	
 	x:0,
 	y:0,
-	direction:4,		//choix de la direction du fantôme
-	vitesse:2,			//choix de la vitesse du fantôme
+	direction:4,								//choix de la direction du fantôme
+	vitesse:2,									//choix de la vitesse du fantôme
 	
-	init(paramLevel) 
+	init(paramLevel) 							// initialisation du virus
 	{
 		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
 		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
@@ -737,6 +790,5 @@ var gost4=		 // paramètres et mise en place du fantôme 2
 			pacman.mort = true;
 			chronoStop();
 		}
-
 	},
 }; 

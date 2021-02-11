@@ -1,23 +1,61 @@
 
-function checkHigherScore()
+switch (expression) {
+	case value1:
+	  //Statements executed when the
+	  //result of expression matches value1
+	  [break;]
+	case value2:
+	  //Statements executed when the
+	  //result of expression matches value2
+	  [break;]
+	...
+	case valueN:
+	  //Statements executed when the
+	  //result of expression matches valueN
+	  [break;]
+	[default:
+	  //Statements executed when none of
+	  //the values match the value of the expression
+	  [break;]]
+  }
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
+var higherScore = localStorage.getItem("oldHigherScore") ;
+
+function checkHigherScore()											// Fonction de gestion du HigherScore
 {
-	var higherScore = localStorage.higherScore ;
-
-	var actualScore = localStorage.score ;
-
-	if( actualScore > higherScore )
+	if ( localStorage.getItem("oldHigherScore") === null )
 	{
-		var newHigherScore = actualScore ;
-		higherScore = newHigherScore ;
+		higherScore = score ;
+		localStorage.setItem("oldHigherScore", higherScore );
 	}
 	else
 	{
-
+		if ( score > higherScore )
+		{
+			higherScore = score ;
+			localStorage.setItem("oldHigherScore", higherScore );
+		}
+		else
+		{
+			higherScore = higherScore ;
+		}
 	}
 }
-higherScore();
-var higherScore = null ;
-var newHigherScore = actualScore ;
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
+	//background du labyrinthe
+	var background = new Image();
+	background.src = "assets/img/backgroundLabyrinthe.png";
+
+	background.onload = function()
+	{
+		canvasContext.drawImage(background,0,0, 1249, 751);   
+	}
 
 //-----------------------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------------------//
