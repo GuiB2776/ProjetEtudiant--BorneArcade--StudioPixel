@@ -188,7 +188,7 @@ html,body
 
 	margin : 2.5% auto;
 	text-align : center;
-
+	color : #ffffff;
 	font-size: 28px;
 }
 .elementHUD
@@ -196,11 +196,11 @@ html,body
 	margin : 0 auto;
 	display : inline-block;
 	padding : 20px;
-	border: 1px dotted black;
+	border: 1px dotted white;
 }
 #score
 {
-	color: green;
+	color: #15a5a6;
 }
 #boutonMenuPrincipal
 {
@@ -363,7 +363,7 @@ html,body
 #titreHigherScores 
 {
 	left: 730px;
-	top: 30px;
+	top: 50px;
 	position: absolute;
 	overflow: visible;
 	width: auto;
@@ -374,7 +374,7 @@ html,body
 #Classement
 {
 	left: 665px;
-	top: 330px;
+	top: 350px;
 	position: absolute;
 	overflow: visible;
 	width: 600px;
@@ -392,7 +392,7 @@ html,body
 }
 .gold_element
 {
-	color: rgb(239, 232, 16);
+	color: #fdc716;
 }
 .silver_element
 {

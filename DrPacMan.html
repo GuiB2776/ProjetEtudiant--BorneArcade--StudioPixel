@@ -26,12 +26,18 @@
     <!-- MUSIQUE -->
     <audio src="assets/sound/DrPacManSound.mp3" type="audio/mpeg" autoplay loop> </audio>
 
+    <img id="Bg_menu" src="assetsMenus/Bg_menu.png">
+    <svg class="coverBackground">
+      <rect id="backgroundCover" rx="0" ry="0" x="0" y="0" width="1920" height="1080" style="opacity: 0.7;">
+      </rect>
+  </svg>
+
     <!-- HUD en header -->
     <header id="HUD">
       <div class="elementHUD"> 
-        <img id="vie1" src="assets/img/DrPacman.png"> </img>
+        <img id="vie1" style="opacity: 0;" src="assets/img/DrPacman.png"> </img>
         <img id="vie2" src="assets/img/DrPacman.png"> </img>
-        <img id="vie3" src="assets/img/DrPacman.png"> </img>
+        <img id="vie3" style="opacity: 0;" src="assets/img/DrPacman.png"> </img>
       </div>
       <div class="elementHUD"> 
         <p id="pointsLeft"> pointsLeft </p> 
@@ -40,7 +46,7 @@
         <p id="score"> score </p> 
       </div>
       <div class="elementHUD">  
-        <p id="highScore"> highScore </p> 
+        <p id="highScore" class="gold_element"> highScore </p> 
       </div>
       <div class="elementHUD"> 
         <p id="chronotime"> 00:00:000 </p>
@@ -60,8 +66,8 @@
       <!-- Contenu de la Popup -->
       <div id="contenuPopUpGameOver">
         <span id="fermerPopUp" onClick="document.location.reload(true)"> &times; </span>
-        <p> <strong> Game Over </strong> </p>
-        <p> Vous avez perdu... </p>
+        <h2> <strong> Game Over </strong> </h2>
+        <p> Un <span class="bronze_element"> virus </span> vous a eu... </p>
         <p> Le meilleur score est de : <span id="popupHigherScore"> 00000 </span> </p>
         <p> Votre score est de : <span id="popupScore"> 00000 </span> </p>
         <p> En <span id="chronotime2"> 00:00:000 </span> de temps </p>
@@ -71,6 +77,15 @@
         </div>
       </div>      
     </div>
+
+    <div> 
+      <h5 onload="tableauDesScores(); afficherClassementHighScores();"> Scores : </h5>
+      <p id="highScore1"> Score 1 </p>
+      <p id="highScore2"> Score 2 </p>
+      <p id="highScore3"> Score 3 </p>
+      <p id="highScore4"> Score 4 </p>
+      <p id="highScore5"> Score 5 </p> 
+     </div>
     
   </body>
 

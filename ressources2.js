@@ -1,23 +1,156 @@
+var newHighScore = score ;
 
-switch (expression) {
-	case value1:
-	  //Statements executed when the
-	  //result of expression matches value1
-	  [break;]
-	case value2:
-	  //Statements executed when the
-	  //result of expression matches value2
-	  [break;]
-	...
-	case valueN:
-	  //Statements executed when the
-	  //result of expression matches valueN
-	  [break;]
-	[default:
-	  //Statements executed when none of
-	  //the values match the value of the expression
-	  [break;]]
-  }
+var highScore2 = localStorage.getItem("highScore2") ;
+var highScore3 = localStorage.getItem("highScore3") ;
+var highScore4 = localStorage.getItem("highScore4") ;
+var highScore5 = localStorage.getItem("highScore5") ;
+
+if( newHighScore > higherScore )
+	{
+		highScore2 = higherScore ;
+		localStorage.setItem("highScore2", highScore2) ;
+		higherScore = newHigherScore ;
+	}
+
+
+// test collision avec Pacman
+var dx = this.x-pacman.x;
+var dy = this.y-pacman.y;
+if( (dx**2) + (dy**2) < distanceCollision ) 
+{
+	pacman.nbrVies = pacman.nbrVies - 1;
+	document.getElementById("nbrVies").innerHTML = pacman.nbrVies ;
+
+	if( pacman.nbrVies == 0)
+	{
+		pacman.mort = true;
+		chronoStop();
+	}
+}
+
+//-----------------------------------------------------------------------------------------------//
+//-----------------------------------------------------------------------------------------------//
+
+
+function tableauDesScores()											// Fonction de gestion du Tableau des Scores
+{
+	function checkHighScore1()	// check HighScore 1
+	{
+		if( localStorage.getItem("higherScore1") === null )
+		{
+			highScore1 = newHighScore ;
+			localStorage.setItem("higherScore1", highScore1) ;
+		}
+		else
+		{
+			if( newHighScore > highScore1 )
+			{
+				highScore1 = newHighScore ;
+				localStorage.setItem("higherScore1", highScore1) ;
+			}
+			else
+			{
+				newHighScore = newHighScore ;
+				checkHighScore2();
+			}
+		}
+	}
+
+	function checkHighScore2()	// check HighScore 2
+	{
+		if( localStorage.getItem("higherScore2") === null )
+		{
+			highScore2 = newHighScore ;
+			localStorage.setItem("higherScore2", highScore2) ;
+		}
+		else
+		{
+			if( newHighScore > highScore2 )
+			{
+				highScore2 = newHighScore ;
+				localStorage.setItem("higherScore2", highScore2) ;
+			}
+			else
+			{
+				newHighScore = newHighScore ;
+				checkHighScore3();
+			}
+		}
+	}
+
+	function checkHighScore3() // check HighScore 3
+	{
+		if( localStorage.getItem("higherScore3") === null )
+		{
+			highScore3 = newHighScore ;
+			localStorage.setItem("higherScore3", highScore3) ;
+		}
+		else
+		{
+			if( newHighScore > highScore3 )
+			{
+				highScore3 = newHighScore ;
+				localStorage.setItem("higherScore3", highScore3) ;
+			}
+			else
+			{
+				newHighScore = newHighScore ;
+				checkHighScore4();
+			}
+		}
+	}
+
+	function checkHighScore4()	// check HighScore 4
+	{
+		if( localStorage.getItem("higherScore4") === null )
+		{
+			highScore4 = newHighScore ;
+			localStorage.setItem("higherScore4", highScore4) ;
+		}
+		else
+		{
+			if( newHighScore > highScore4 )
+			{
+				highScore4 = newHighScore ;
+				localStorage.setItem("higherScore4", highScore4) ;
+			}
+			else
+			{
+				newHighScore = newHighScore ;
+				checkHighScore5();
+			}
+		}
+	}
+
+	function checkHighScore5() // check HighScore 5
+	{
+		if( localStorage.getItem("higherScore5") === null )
+		{
+			highScore5 = newHighScore ;
+			localStorage.setItem("higherScore5", highScore5) ;
+		}
+		else
+		{
+			if( newHighScore > highScore5 )
+			{
+				highScore5 = newHighScore ;
+				localStorage.setItem("higherScore5", highScore5) ;
+			}
+			else
+			{
+				newHighScore = newHighScore ;
+			}
+		}
+	}
+
+	document.getElementById("highScore1").innerHTML = localStorage.getItem("HigherScore") ;
+	document.getElementById("highScore2").innerHTML = localStorage.getItem("highScore2") ;
+	document.getElementById("highScore3").innerHTML = localStorage.getItem("highScore3") ;
+	document.getElementById("highScore4").innerHTML = localStorage.getItem("highScore4") ;
+	document.getElementById("highScore5").innerHTML = localStorage.getItem("highScore5") ;
+		
+	checkHighScore1();
+}
 
 //-----------------------------------------------------------------------------------------------//
 //-----------------------------------------------------------------------------------------------//

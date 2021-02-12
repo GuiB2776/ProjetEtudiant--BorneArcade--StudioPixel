@@ -20,21 +20,21 @@ var canvasContext ;
 
 var score = 0 ;
 
-var higherScore = localStorage.getItem("oldHigherScore") ;
+var higherScore = localStorage.getItem("HigherScore") ;
 
 function checkHigherScore()											// Fonction de gestion du HigherScore
 {
-	if ( localStorage.getItem("oldHigherScore") === null )
+	if ( localStorage.getItem("HigherScore") === null )
 	{
 		higherScore = score ;
-		localStorage.setItem("oldHigherScore", higherScore );
+		localStorage.setItem("HigherScore", higherScore);
 	}
 	else
 	{
 		if ( score > higherScore )
 		{
 			higherScore = score ;
-			localStorage.setItem("oldHigherScore", higherScore );
+			localStorage.setItem("HigherScore", higherScore);
 		}
 		else
 		{
@@ -43,61 +43,46 @@ function checkHigherScore()											// Fonction de gestion du HigherScore
 	}
 }
 
-var newHigherScore = score ;
-
-var highScore1 = localStorage.getItem("highScore1") ;
 var highScore2 = localStorage.getItem("highScore2") ;
+
+function checkHighScore2()
+{
+	if( localStorage.getItem("highScore2") === null )
+	{
+		highScore2 = score ;
+		localStorage.setItem("highScore2", highScore2);
+	}
+	else
+	{
+		if( score > higherScore )
+		{
+			highScore2 = higherScore ;
+			localStorage.setItem("highScore2", highScore2) ;
+			higherScore = newHigherScore ;
+		}
+		else
+		{
+			higherScore = higherScore ;
+			highScore2 = score ;
+		}
+	}
+}
+
 var highScore3 = localStorage.getItem("highScore3") ;
 var highScore4 = localStorage.getItem("highScore4") ;
 var highScore5 = localStorage.getItem("highScore5") ;
 
-function tableauDesScores()											// Fonction de gestion du Tableau des Scores
-{
-	if( newHigherScore > highScore1)
-	{
-		highScore1 = newHigherScore ;
-		localStorage.setItem("highScore1", highScore1) ;
-	}
-	else if( newHigherScore > highScore2)
-	{
-		highScore2 = newHigherScore ;
-		localStorage.setItem("highScore2", highScore2) ;
-	}
-	else if( newHigherScore > highScore3)
-	{
-		highScore3 = newHigherScore ;
-		localStorage.setItem("highScore3", highScore3) ;
-	}
-	else if( newHigherScore > highScore4)
-	{
-		highScore4 = newHigherScore ;
-		localStorage.setItem("highScore4", highScore4) ;
-	}
-	else if( newHigherScore > highScore5)
-	{
-		highScore5 = newHigherScore ;
-		localStorage.setItem("highScore5", highScore5) ;
-	}
 
-	function afficherClassementHighScores()							// Fonction d'affichage sur la page Tableau des Scores
-	{
-		document.getElementById("highScore1").innerHTML=  localStorage.getItem("olgHigherScore") ;
-		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore2") ;
-		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore3") ;
-		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore4") ;
-		document.getElementById("highScore1").innerHTML=  localStorage.getItem("highScore5") ;
-	}
-
-}
+// document.getElementById("highScore1").innerHTML = localStorage.getItem("HigherScore") ;
+// document.getElementById("highScore2").innerHTML = localStorage.getItem("highScore2") ;
+// document.getElementById("highScore3").innerHTML = localStorage.getItem("highScore3") ;
+// document.getElementById("highScore4").innerHTML = localStorage.getItem("highScore4") ;
+// document.getElementById("highScore5").innerHTML = localStorage.getItem("highScore5") ;
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-var nbVies = 3;
-
-var totalPilules = nbPillule ;
-
-var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '5', '3','13', '1', '3', '9', '5', '5', '5', '5', '5', '3'],              // 1
+var niveau1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '5', '3','13', '1', '3', '9', '5', '5', '5', '5', '5', '3'],              // 1
 			['10',"13", "5", "1", "5", "7",'10', "8", "6",' 9',' 6',' 9',' 1', '3','12', '3','12', '2','10','13', '5', '5', '5' ,'7','10'],              // 2
 			[ '8', '5', '7','10','13', '5', '2','10', '9', '6', '9', '0', '0', '0', '3','12', '3','10', '8', '5', '5', '5', '5', '5', '2'],              // 3
 			['10', '9', '1', '0', '1', '3','10','10','10', '9', '4', '4', '4', '4', '4', '3','10','10','10', '9', '1', '1', '1', '3','10'],              // 4
@@ -113,19 +98,26 @@ var laby1 =[[ '9', '5', '5', '5', '5', '5', '3', '9', '1', '7', '9',' 5', '5', '
 			['10','13', '5', '5',' 5', '7','10','14','10','14','12',' 3','14', '9',' 6','14','10','14','10','13',' 5',' 4',' 5', '7','10'],              // 14
 			['12', '5', '5', '5', '5',' 5',' 4',' 5',' 4', '7','15','12',' 5',' 6','15','13',' 4',' 5',' 4',' 5',' 5',' 5', '5',' 5',' 6'],				 // 15
 		];
-		//	  01   02   03   04   05   06   07   08   09   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25 
+		//	  01   02   03   04   05   06   07   08   09   10   11   12   13   14   15   16   17   18   19   20   21   22   23   24   25          ( commence par 0,0 par pas 1,1)
 
 
-var level = 0;
-var definitionLevel=[ 
-						{labyrinthe:laby1,startX:12,startY:4,direction:0}, //sélection de la zone de départ du PacMan et sa direction
-					];	
+var level = 0;			//sélection de la zone de départ du PacMan et sa direction
+var definitionLevel=[ {labyrinthe:niveau1,startX:12,startY:4,direction:0}, ];	
 
 
-var imageMur;	// défintion variable pour y mettre les assets des murs
-function startLoading() //chargement des assets des murs dans un tableau grâce à la fonction loadImage()
+
+var imageMasque;				// asset des masques
+function startLoading() 		// lancement des chargements d'éléments
 {
-    imageMur=loadImage([	"assets/img/mur0.png",
+	imageMasque = loadImage([ "assets/img/masque.png" ], loadMurs);
+}
+
+
+
+var imageMur;				// défintion variable pour y mettre les assets des murs
+function loadMurs() 		// chargement des assets des murs dans un tableau grâce à la fonction loadImage()
+{
+    imageMur = loadImage([	"assets/img/mur0.png",
 							"assets/img/mur1.png",
 							"assets/img/mur2.png",
 							"assets/img/mur3.png",
@@ -140,29 +132,30 @@ function startLoading() //chargement des assets des murs dans un tableau grâce 
 							"assets/img/mur12.png",
 							"assets/img/mur13.png",
 							"assets/img/mur14.png",
-							"assets/img/mur15.png"],endLoadMur); // appel de la fonction de chargement de PacMan
+							"assets/img/mur15.png"], loadPacman); // appel de la fonction de chargement de PacMan
 }
 
 
 
 var imagePacman;
-function endLoadMur() 											// création fonction enLoadMur() qui charge Pacman
+function loadPacman() 											
 {        														
 	imagePacman = loadImage([	"assets/img/DrPacman.png",   	// chargement du PacMan, dans un tableau
-								],endLoadPacman);				// appel de la fonction endLoadPacman qui charge les ghosts
+								],loadVirus);					// appel de la fonction endLoadPacman qui charge les ghosts
 }	
 
 
 
-var imageGost;
-function endLoadPacman()  // chargement des Ghosts, dans un tableau
+var imageVirus;
+function loadVirus()  						// chargement des virus, dans un tableau
 {     
-	imageGost=loadImage([		"assets/img/virus.png",
-								"assets/img/virusRouge.png",
-								"assets/img/virusOrange.png",
-								"assets/img/virusBleu.png",
-								"assets/img/virusViolet.png"], initialisation);	// appel de la fonction endLoadGhost qui définie le canvas
+	imageVirus = loadImage([ "assets/img/virus.png",
+							 "assets/img/virusRouge.png",
+							 "assets/img/virusOrange.png",
+							 "assets/img/virusBleu.png",
+							 "assets/img/virusViolet.png" ], initialisation);	// appel de la fonction endLoadGhost qui définie le canvas
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -184,10 +177,10 @@ function initialisation() 		// fonction de chargement du canvas >>> ses paramèt
 	document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 
 	pacman.init(definitionLevel[level]);										//initialisation du pac man dans le niveau selectioner
-	gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
-	gost2.init(definitionLevel[level]);	
-	gost3.init(definitionLevel[level]);	
-	gost4.init(definitionLevel[level]);	
+	virus1.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
+	virus2.init(definitionLevel[level]);	
+	virus3.init(definitionLevel[level]);	
+	virus4.init(definitionLevel[level]);	
 	createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY);	//création des pillules
 
 	//appel de l'objet dynamique ghost()
@@ -201,30 +194,32 @@ var nbPillule = 0;
 //// ---- Boucle principale ---- ////
 function loopMain() 	// définition de la boucle principale
 {  
+	// background du canvas
 	canvasContext.fillStyle = "#ffffff";
+	//taille du remplissage du canvas
 	canvasContext.fillRect(0, 0, 1250, 750);
 	
-	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);	// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
-	pacman.update(definitionLevel[level]);							// mise à jour du pacman
-	//for ( var < )
-	gost.update(definitionLevel[level]);							// mise à jour des fantômes 
-	gost2.update(definitionLevel[level]);
-	gost3.update(definitionLevel[level]);
-	gost4.update(definitionLevel[level]);
+	var nbPillule = drawLaby(definitionLevel[level].labyrinthe);					// definition du nombre de pièces dans le labyrinthe par le nombre de cases disponibles 
+	pacman.update(definitionLevel[level]);											// mise à jour du pacman
+	// si objet ghost dynamique : for ( var < )
+	virus1.update(definitionLevel[level]);											// mise à jour des fantômes 
+	virus2.update(definitionLevel[level]);
+	virus3.update(definitionLevel[level]);
+	virus4.update(definitionLevel[level]);
 
-	// document.getElementById("score").innerHTML= "Score : " + score + "  //  " + " Points restant : " + nbPillule ;
+	// document.getElementById("score").innerHTML= "Score : " + score + " ||| " + " Points restant : " + nbPillule ;
 	document.getElementById("score").innerHTML= "Score : " + score ;
 	document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 	checkHigherScore();
 	document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
 	
 	if( !nbPillule )  
-	{																				// s'il n'y a plus de pièces, on relance le niveau
+	{																					// s'il n'y a plus de pièces, on relance le niveau
 		pacman.init(definitionLevel[level]);
-		gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
-		gost2.init(definitionLevel[level]);	
-		gost3.init(definitionLevel[level]);	
-		gost4.init(definitionLevel[level]);	
+		virus1.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
+		virus2.init(definitionLevel[level]);	
+		virus3.init(definitionLevel[level]);	
+		virus4.init(definitionLevel[level]);	
 		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY); // recréation des pièces
 	}
 
@@ -232,18 +227,19 @@ function loopMain() 	// définition de la boucle principale
 	{
 		popUpGameOver();
 
-		pacman.init(definitionLevel[level].labyrinthe,definitionLevel[level]);
-		gost.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
-		gost2.init(definitionLevel[level]);	
-		gost3.init(definitionLevel[level]);	
-		gost4.init(definitionLevel[level]);	
-		createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY); // recréation des pièces
+		// pacman.init(definitionLevel[level].labyrinthe,definitionLevel[level]);
+		// virus1.init(definitionLevel[level]);											//initialisation des fantomes dans le niveau selectioner
+		// virus2.init(definitionLevel[level]);	
+		// virus3.init(definitionLevel[level]);	
+		// virus4.init(definitionLevel[level]);	
+		// createPillules(definitionLevel[level].labyrinthe,definitionLevel[level].startX,definitionLevel[level].startY); // recréation des pièces
 
 		document.getElementById("score").innerHTML= "Score : " + score ;
 		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 		checkHigherScore();
 		document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
-		tableauDesScores();
+		checkHighScore2();
+		// tableauDesScores();
 	}
 
 	setTimeout(loopMain, 1000/60);	// délais de chargement de 1000 millisecondes / 60
@@ -268,6 +264,8 @@ var pacman=					// définition de pacman
 	vitesseAnim:6,
 	vAnim:0,
 	noAnim:0,
+
+	nbrVies: 3,
 
 	mort : false,
 
@@ -427,7 +425,8 @@ var pacman=					// définition de pacman
 		document.getElementById("pointsLeft").innerHTML= "Points restant : " + nbPillule ;
 		checkHigherScore();
 		document.getElementById("highScore").innerHTML= "HigherScore : " + higherScore ;
-		tableauDesScores();
+		checkHighScore2();
+		// tableauDesScores();
 	},
 	
 };
@@ -441,6 +440,11 @@ function drawLaby(laby)							// création du labyrinthe avec une double boucle 
 
 	var pillule;
 	canvasContext.fillStyle="#000000";
+	
+	//	canvasContext.drawImage(imageMasque[0],
+	//	0,0,tailleCelluleLaby,tailleCelluleLaby,
+	//	this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
+	
 
 	for(var ligne=0 ; ligne<hauteurLaby ; ligne++ ) 
 	{
@@ -454,7 +458,7 @@ function drawLaby(laby)							// création du labyrinthe avec une double boucle 
 		}
 	}
 
-	var cptPillule = 0;		// création et placement des pillules 
+	var cptPillule = 0;									// création et placement des pillules 
 	for( var ligne=0 ; ligne<hauteurLaby ; ligne++ ) 
 	{
 		for(var colonne=0;colonne<largeurLaby;colonne++) 
@@ -483,35 +487,55 @@ function drawLaby(laby)							// création du labyrinthe avec une double boucle 
 }
 
 
-
 //// ---- création && mise en place des pièces à ramasser ---- ////
 function createPillules(laby,x,y) 									// création des pièces dans le labyrinthe
 {
 	// laby[y][x]|=1<<7;   // bonus
-	laby[y][x]|=1<<4;
-	if(!(laby[y][x]&2)) laby[y][x]|=2<<4;
-	if(!(laby[y][x]&4)) laby[y][x]|=4<<4;
-	if(!(laby[y][x]&1) && !(laby[y-1][x]&(1<<4))) createPillules(laby,x,y-1);
-	if(!(laby[y][x]&2) && !(laby[y][x+1]&(1<<4))) createPillules(laby,x+1,y);
-	if(!(laby[y][x]&4) && !(laby[y+1][x]&(1<<4))) createPillules(laby,x,y+1);
-	if(!(laby[y][x]&8) && !(laby[y][x-1]&(1<<4))) createPillules(laby,x-1,y);
+	laby[y][x]|=1<<4 ;
+	if(!(laby[y][x]&2)) 
+	{
+		laby[y][x]|=2<<4 ;
+	}
+	if(!(laby[y][x]&4)) 
+	{ 
+		laby[y][x]|=4<<4 ;
+	}
+	if(!(laby[y][x]&1) && !(laby[y-1][x]&(1<<4)))
+	{
+		createPillules(laby,x,y-1) ;
+	}
+	if(!(laby[y][x]&2) && !(laby[y][x+1]&(1<<4))) 
+	{
+		createPillules(laby,x+1,y) ;
+	}
+	if(!(laby[y][x]&4) && !(laby[y+1][x]&(1<<4))) 
+	{
+		createPillules(laby,x,y+1) ;
+	}
+	if(!(laby[y][x]&8) && !(laby[y][x-1]&(1<<4)))
+	{
+		createPillules(laby,x-1,y) ;
+	}
 }
 
 
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+
 ///////////////////////////////////////////////////////////////////////////////////////////
 // --- // virus 1 // --- //
-
-var gost =		 								// paramètres et mise en place du virus 1
+var virus1 =		 								// paramètres et mise en place du virus 1
 {   
 	x:0,
 	y:0,
-	direction:4,								//choix de la direction du fantôme
+	direction:1,								//choix de la direction du fantôme
 	vitesse:2,									//choix de la vitesse du fantôme
 	
 	init(paramLevel) 
 	{
 		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
-		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+		this.y=8*tailleCelluleLaby;				//position y de départ du fantôme
 	},
 	
 	update(paramLevel) 
@@ -548,7 +572,7 @@ var gost =		 								// paramètres et mise en place du virus 1
 		}
 
 		canvasContext.save();
-		canvasContext.drawImage(imageGost[1],
+		canvasContext.drawImage(imageVirus[1],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();
@@ -564,20 +588,19 @@ var gost =		 								// paramètres et mise en place du virus 1
 	},
 }; 
 
-
 ///////////////////////////////////////////////////////////////////////////////////////////
 // --- // virus 2 // --- //
-var gost2 =		 								// paramètres et mise en place du virus 2
+var virus2 =		 								// paramètres et mise en place du virus 2
 {   
 	x:0,
 	y:0,
-	direction:4,								//choix de la direction du fantôme
+	direction:1,								//choix de la direction du fantôme
 	vitesse:2,									//choix de la vitesse du fantôme
 	
 	init(paramLevel) 							// initialisation du virus
 	{
 		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
-		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+		this.y=10*tailleCelluleLaby;				//position y de départ du fantôme
 	},
 	
 	update(paramLevel) 
@@ -624,7 +647,7 @@ var gost2 =		 								// paramètres et mise en place du virus 2
 		}
 
 		canvasContext.save();
-		canvasContext.drawImage(imageGost[2],
+		canvasContext.drawImage(imageVirus[2],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();
@@ -643,17 +666,17 @@ var gost2 =		 								// paramètres et mise en place du virus 2
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 // --- // virus 3 // --- //
-var gost3 =		 								// paramètres et mise en place du virus 4
+var virus3 =		 								// paramètres et mise en place du virus 4
 {   
 	x:0,
 	y:0,
-	direction:4,								//choix de la direction du fantôme
+	direction:1,								//choix de la direction du fantôme
 	vitesse:2,									//choix de la vitesse du fantôme
 	
 	init(paramLevel) 							// initialisation du virus
 	{
-		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
-		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+		this.x=18*tailleCelluleLaby;			//position x de départ du fantôme
+		this.y=8*tailleCelluleLaby;				//position y de départ du fantôme
 	},
 	
 	update(paramLevel) 
@@ -700,7 +723,7 @@ var gost3 =		 								// paramètres et mise en place du virus 4
 		}
 
 		canvasContext.save();
-		canvasContext.drawImage(imageGost[3],
+		canvasContext.drawImage(imageVirus[3],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();
@@ -718,9 +741,8 @@ var gost3 =		 								// paramètres et mise en place du virus 4
 }; 
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-
 // --- // virus 4 // --- //
-var gost4=										// paramètres et mise en place du virus 4
+var virus4=										// paramètres et mise en place du virus 4
 {   
 	x:0,
 	y:0,
@@ -729,8 +751,8 @@ var gost4=										// paramètres et mise en place du virus 4
 	
 	init(paramLevel) 							// initialisation du virus
 	{
-		this.x=12*tailleCelluleLaby;			//position x de départ du fantôme
-		this.y=9*tailleCelluleLaby;				//position y de départ du fantôme
+		this.x=6*tailleCelluleLaby;			//position x de départ du fantôme
+		this.y=8*tailleCelluleLaby;				//position y de départ du fantôme
 	},
 	
 	update(paramLevel) 
@@ -777,7 +799,7 @@ var gost4=										// paramètres et mise en place du virus 4
 		}
 
 		canvasContext.save();
-		canvasContext.drawImage(imageGost[4],
+		canvasContext.drawImage(imageVirus[4],
 								0,0,tailleCelluleLaby,tailleCelluleLaby,
 								this.x,this.y,tailleCelluleLaby,tailleCelluleLaby);
 		canvasContext.restore();
@@ -792,3 +814,4 @@ var gost4=										// paramètres et mise en place du virus 4
 		}
 	},
 }; 
+

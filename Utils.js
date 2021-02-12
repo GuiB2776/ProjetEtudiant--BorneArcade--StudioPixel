@@ -2,30 +2,29 @@
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
-document.addEventListener("keydown",fKeyDown,false);
-document.addEventListener("keyup",fKeyUp,false);
+document.addEventListener("keydown",keyDownFunction,false);
+document.addEventListener("keyup",keyUpFunction,false);
 
 var joystick=0;
 
-
 /////---// FONCTION touche appuyée //--/////
-
-function fKeyDown(event) {
-	//alert(event.keyCode);
-	switch(event.keyCode) {
-		case 37:	// left
+function keyDownFunction(event) 
+{
+	switch(event.keyCode) 		// https://keycode.info/
+	{
+		case 37:				// flèche de gauche
 			joystick|=8;
 			break;
-		case 38:	// up
+		case 38:	    		// flèche du haut
 			joystick|=1;
 			break;
-		case 39:	// right
+		case 39:				// flèche de droite
 			joystick|=2;
 			break;
-		case 40:	// down
+		case 40:				// flèche du bas
 			joystick|=4;
 			break;
-		case 77:	// m
+		case 32:				// barre espace
 			joystick|=16;
 			break;
 		default:
@@ -36,22 +35,23 @@ function fKeyDown(event) {
 }
 
 /////---// FONCTION touche relevée //--/////
-
-function fKeyUp(event) {
-	switch(event.keyCode) {
-		case 37:	// left
+function keyUpFunction(event) 
+{
+	switch(event.keyCode) 			// https://keycode.info/
+	{
+		case 37:					// left
 			joystick&=0xffff-8;
 			break;
-		case 38:	// up
+		case 38:					// up
 			joystick&=0xffff-1;
 			break;
-		case 39:	// right
+		case 39:					// right
 			joystick&=0xffff-2;
 			break;
-		case 40:	// down
+		case 40:					// down
 			joystick&=0xffff-4;
 			break;
-		case 77:	// m
+		case 32:					// barre espace
 			joystick&=0xffff-16;
 			break;
 		default:
@@ -143,13 +143,12 @@ function popUpGameOver()
 
 function afficherClassementHighScores()	// Fonction d'affichage sur la page Tableau des Scores
 {
-	document.getElementById("highScore1").innerHTML=  localStorage.getItem("oldHigherScore") ;
-	document.getElementById("highScore2").innerHTML=  localStorage.getItem("highScore2") ;
-	document.getElementById("highScore3").innerHTML=  localStorage.getItem("highScore3") ;
-	document.getElementById("highScore4").innerHTML=  localStorage.getItem("highScore4") ;
-	document.getElementById("highScore5").innerHTML=  localStorage.getItem("highScore5") ;
+	document.getElementById("highScore1").innerHTML = localStorage.getItem("HigherScore") ;
+	document.getElementById("highScore2").innerHTML = localStorage.getItem("highScore2") ;
+	document.getElementById("highScore3").innerHTML = localStorage.getItem("highScore3") ;
+	document.getElementById("highScore4").innerHTML = localStorage.getItem("highScore4") ;
+	document.getElementById("highScore5").innerHTML = localStorage.getItem("highScore5") ;
 }
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
